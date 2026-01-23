@@ -1,9 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Package } from 'lucide-react'
+import { supabase } from '@/lib/supabase/client'
 import { CONTENT } from '@/lib/config/content'
 import DatasetCard from '@/components/datasets/DatasetCard'
+import BundleCard from './BundleCard'
 import { ProductTabs, type ProductTabType } from './ProductTabs'
 
 // ============================================
@@ -19,6 +21,32 @@ interface Dataset {
   category: string
 }
 
+interface Bundle {
+  id: string
+  title: string
+  description: string
+  price_mxn: number
+  original_price_mxn: number
+  discount_percentage: number
+  ideal_for: string
+  included_datasets: string[]
+}
+
+interface BundleFromDB {
+  id: string
+  title: string
+  description: string
+  price_mxn: number
+  original_price_mxn: number
+  discount_percentage: number
+  ideal_for: string
+  bundle_datasets: Array<{
+    datasets: {
+      title: string
+    } | null
+  }>
+}
+
 export interface CatalogSectionProps {
   /** Datasets a mostrar */
   datasets: Dataset[] | null
@@ -32,6 +60,67 @@ export interface CatalogSectionProps {
 
 export function CatalogSection({ datasets, error }: CatalogSectionProps) {
   const [activeTab, setActiveTab] = useState<ProductTabType>('individual')
+  const [bundles, setBundles] = useState<Bundle[] | null>(null)
+  const [bundlesLoading, setBundlesLoading] = useState(false)
+  const [bundlesError, setBundlesError] = useState(false)
+
+  // Cargar bundles cuando se activa el tab
+  useEffect(() => {
+    if (activeTab === 'bundles' && bundles === null) {
+      loadBundles()
+    }
+  }, [activeTab, bundles])
+
+  const loadBundles = async () => {
+    setBundlesLoading(true)
+    setBundlesError(false)
+
+    try {
+      const { data, error: queryError } = await supabase
+        .from('bundles')
+        .select(`
+          id,
+          title,
+          description,
+          price_mxn,
+          original_price_mxn,
+          discount_percentage,
+          ideal_for,
+          bundle_datasets(
+            datasets(title)
+          )
+        `)
+        .eq('is_published', true)
+
+      if (queryError) {
+        console.error('Error loading bundles:', queryError)
+        setBundlesError(true)
+        return
+      }
+
+      // Transformar datos para extraer títulos de datasets
+      const bundlesData = (data || []) as unknown as BundleFromDB[]
+      const transformedBundles: Bundle[] = bundlesData.map((bundle) => ({
+        id: bundle.id,
+        title: bundle.title,
+        description: bundle.description,
+        price_mxn: bundle.price_mxn,
+        original_price_mxn: bundle.original_price_mxn,
+        discount_percentage: bundle.discount_percentage,
+        ideal_for: bundle.ideal_for,
+        included_datasets: bundle.bundle_datasets
+          .filter((bd) => bd.datasets !== null)
+          .map((bd) => bd.datasets!.title),
+      }))
+
+      setBundles(transformedBundles)
+    } catch (err) {
+      console.error('Error loading bundles:', err)
+      setBundlesError(true)
+    } finally {
+      setBundlesLoading(false)
+    }
+  }
 
   const handleTabChange = (tab: ProductTabType) => {
     setActiveTab(tab)
@@ -45,6 +134,48 @@ export function CatalogSection({ datasets, error }: CatalogSectionProps) {
   const subtitle = activeTab === 'individual'
     ? CONTENT.catalog.subtitle
     : CONTENT.catalog.subtitleBundles
+
+  // Renderizar estado vacío
+  const renderEmptyState = (message: string, submessage: string) => (
+    <div className="text-center py-12">
+      <div className="backdrop-blur-sm bg-white/90 border border-slate-200/50 rounded-2xl p-10 max-w-md mx-auto shadow-xl">
+        <div className="w-16 h-16 bg-gradient-to-br from-slate-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Package className="w-8 h-8 text-slate-400" />
+        </div>
+        <p className="text-slate-700 text-lg font-medium">
+          {message}
+        </p>
+        <p className="text-slate-500 text-sm mt-2">
+          {submessage}
+        </p>
+      </div>
+    </div>
+  )
+
+  // Renderizar estado de error
+  const renderErrorState = (message: string) => (
+    <div className="text-center py-12">
+      <div className="backdrop-blur-sm bg-red-50/90 border border-red-200 rounded-2xl p-8 max-w-md mx-auto shadow-xl">
+        <p className="text-red-600 font-medium">
+          {message}
+        </p>
+      </div>
+    </div>
+  )
+
+  // Renderizar estado de carga
+  const renderLoadingState = () => (
+    <div className="text-center py-16">
+      <div className="backdrop-blur-sm bg-white/90 border border-slate-200/50 rounded-2xl p-12 max-w-md mx-auto shadow-xl">
+        <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
+          <Package className="w-8 h-8 text-blue-500" />
+        </div>
+        <p className="text-slate-600 font-medium">
+          {CONTENT.catalog.loadingBundles}
+        </p>
+      </div>
+    </div>
+  )
 
   return (
     <section id="catalogo" className="max-w-7xl mx-auto px-8 pb-24">
@@ -66,39 +197,9 @@ export function CatalogSection({ datasets, error }: CatalogSectionProps) {
         // Tab Individual: mostrar datasets
         <>
           {error ? (
-            <div className="text-center py-12">
-              <div className="backdrop-blur-sm bg-red-50/90 border border-red-200 rounded-2xl p-8 max-w-md mx-auto shadow-xl">
-                <p className="text-red-600 font-medium">
-                  {CONTENT.catalog.errorMessage}
-                </p>
-              </div>
-            </div>
+            renderErrorState(CONTENT.catalog.errorMessage)
           ) : !datasets || datasets.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="backdrop-blur-sm bg-white/90 border border-slate-200/50 rounded-2xl p-10 max-w-md mx-auto shadow-xl">
-                <div className="w-16 h-16 bg-gradient-to-br from-slate-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg
-                    className="w-8 h-8 text-slate-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
-                    />
-                  </svg>
-                </div>
-                <p className="text-slate-700 text-lg font-medium">
-                  {CONTENT.catalog.emptyTitle}
-                </p>
-                <p className="text-slate-500 text-sm mt-2">
-                  {CONTENT.catalog.emptySubtitle}
-                </p>
-              </div>
-            </div>
+            renderEmptyState(CONTENT.catalog.emptyTitle, CONTENT.catalog.emptySubtitle)
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {datasets.map((dataset) => (
@@ -115,33 +216,32 @@ export function CatalogSection({ datasets, error }: CatalogSectionProps) {
           )}
         </>
       ) : (
-        // Tab Bundles: mostrar coming soon
-        <div className="text-center py-16">
-          <div className="backdrop-blur-sm bg-gradient-to-br from-blue-50/90 to-emerald-50/90 border border-blue-200/50 rounded-2xl p-12 max-w-lg mx-auto shadow-xl">
-            {/* Icon */}
-            <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-              <Package className="w-10 h-10 text-white" />
+        // Tab Bundles: mostrar paquetes
+        <>
+          {bundlesLoading ? (
+            renderLoadingState()
+          ) : bundlesError ? (
+            renderErrorState(CONTENT.catalog.errorMessageBundles)
+          ) : !bundles || bundles.length === 0 ? (
+            renderEmptyState(CONTENT.catalog.emptyBundlesTitle, CONTENT.catalog.emptyBundlesSubtitle)
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {bundles.map((bundle) => (
+                <BundleCard
+                  key={bundle.id}
+                  id={bundle.id}
+                  title={bundle.title}
+                  description={bundle.description}
+                  price_mxn={bundle.price_mxn}
+                  original_price_mxn={bundle.original_price_mxn}
+                  discount_percentage={bundle.discount_percentage}
+                  ideal_for={bundle.ideal_for}
+                  included_datasets={bundle.included_datasets}
+                />
+              ))}
             </div>
-
-            {/* Title */}
-            <h3 className="text-2xl font-bold tracking-tight text-slate-900 mb-3">
-              {CONTENT.catalog.comingSoon}
-            </h3>
-
-            {/* Description */}
-            <p className="text-slate-600 leading-relaxed">
-              {CONTENT.catalog.comingSoonSubtitle}
-            </p>
-
-            {/* Decorative badge */}
-            <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-white/80 rounded-full border border-slate-200/50">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-sm font-medium text-slate-600">
-                En desarrollo
-              </span>
-            </div>
-          </div>
-        </div>
+          )}
+        </>
       )}
     </section>
   )

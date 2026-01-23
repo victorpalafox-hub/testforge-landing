@@ -63,8 +63,16 @@ export interface CatalogContent {
   emptyTitle: string
   /** Mensaje secundario cuando no hay datasets */
   emptySubtitle: string
+  /** Mensaje cuando no hay bundles */
+  emptyBundlesTitle: string
+  /** Mensaje secundario cuando no hay bundles */
+  emptyBundlesSubtitle: string
   /** Mensaje de error */
   errorMessage: string
+  /** Mensaje de error para bundles */
+  errorMessageBundles: string
+  /** Mensaje de carga de bundles */
+  loadingBundles: string
   /** Mensaje de "próximamente" */
   comingSoon: string
   /** Subtítulo de coming soon */
@@ -189,7 +197,11 @@ export const CATALOG: CatalogContent = {
   subtitleBundles: 'Ahorra con nuestras colecciones curadas de datasets',
   emptyTitle: 'No hay datasets disponibles',
   emptySubtitle: 'Vuelve pronto para descubrir nuevos datasets',
+  emptyBundlesTitle: 'No hay paquetes disponibles',
+  emptyBundlesSubtitle: 'Pronto agregaremos paquetes con descuentos especiales',
   errorMessage: 'Error al cargar los datasets',
+  errorMessageBundles: 'Error al cargar los paquetes',
+  loadingBundles: 'Cargando paquetes...',
   comingSoon: 'Paquetes disponibles pronto',
   comingSoonSubtitle: 'Estamos preparando colecciones especiales de datasets con precios exclusivos. ¡Mantente atento!',
 }

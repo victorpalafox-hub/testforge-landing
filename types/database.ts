@@ -48,3 +48,31 @@ export type DatasetInsert = Omit<Dataset, 'id' | 'created_at' | 'updated_at' | '
 
 // Tipo para actualizar un dataset (todos los campos opcionales excepto id)
 export type DatasetUpdate = Partial<Omit<Dataset, 'id' | 'created_at' | 'updated_at'>>
+
+// Tipo para la tabla: bundles
+export type Bundle = {
+  id: string
+  slug: string
+  title: string
+  description: string
+  price_mxn: number
+  original_price_mxn: number
+  discount_percentage: number
+  ideal_for: string
+  is_published: boolean
+  created_at: string
+  updated_at: string
+}
+
+// Tipo para la tabla: bundle_datasets (relación many-to-many)
+export type BundleDataset = {
+  id: string
+  bundle_id: string
+  dataset_id: string
+  created_at: string
+}
+
+// Bundle con datasets incluidos (para mostrar en UI)
+export type BundleWithDatasets = Bundle & {
+  included_datasets: Pick<Dataset, 'id' | 'title'>[]
+}
