@@ -50,6 +50,22 @@ export interface TabsConfig {
   bundles: TabContent
 }
 
+export interface NavLink {
+  /** Texto del enlace */
+  label: string
+  /** URL o anchor del enlace */
+  href: string
+  /** Identificador único */
+  id: string
+}
+
+export interface HeaderContent {
+  /** Nombre de la marca en el header */
+  brandName: string
+  /** Links de navegación */
+  navigation: NavLink[]
+}
+
 export interface CatalogContent {
   /** Título de la sección del catálogo */
   title: string
@@ -80,6 +96,7 @@ export interface CatalogContent {
 }
 
 export interface ContentConfig {
+  header: HeaderContent
   hero: HeroContent
   benefits: Benefit[]
   tabs: TabsConfig
@@ -105,6 +122,22 @@ export interface ContentConfig {
 // ============================================
 // CONFIGURACIÓN
 // ============================================
+
+/**
+ * Contenido del Header
+ *
+ * Para modificar la navegación principal:
+ * 1. Cambia `brandName` para el nombre en el header
+ * 2. Ajusta `navigation` para los enlaces de navegación
+ */
+export const HEADER: HeaderContent = {
+  brandName: 'Datasets MX',
+  navigation: [
+    { label: 'Inicio', href: '/', id: 'inicio' },
+    { label: 'Catálogo', href: '#catalogo', id: 'catalogo' },
+    { label: 'Contacto', href: '#contacto', id: 'contacto' },
+  ],
+}
 
 /**
  * Contenido del Hero Section
@@ -245,6 +278,7 @@ export const FOOTER = {
  * ```
  */
 export const CONTENT: ContentConfig = {
+  header: HEADER,
   hero: HERO,
   benefits: BENEFITS,
   tabs: TABS,

@@ -31,9 +31,26 @@ export interface TabStyles {
   container: string
 }
 
+export interface HeaderStyles {
+  /** Clases del contenedor principal */
+  container: string
+  /** Clases del contenedor interno */
+  inner: string
+  /** Clases del logo/nombre */
+  logo: string
+  /** Clases del contenedor de navegación */
+  nav: string
+  /** Clases de links de navegación */
+  link: string
+  /** Clases de link activo */
+  linkActive: string
+}
+
 export interface BrandStyles {
   /** Estilos de tabs de navegación */
   tab: TabStyles
+  /** Estilos del header */
+  header: HeaderStyles
 }
 
 export interface BrandConfig {
@@ -108,6 +125,20 @@ export const BRAND: BrandConfig = {
       inactive: 'bg-white/60 text-slate-600 hover:bg-white hover:text-slate-900 border border-slate-200/50',
       // Contenedor: fondo glassmorphism, padding, rounded
       container: 'inline-flex items-center gap-2 p-1.5 bg-white/80 backdrop-blur-sm rounded-xl border border-slate-200/50 shadow-sm',
+    },
+    header: {
+      // Contenedor sticky con glassmorphism
+      container: 'sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200',
+      // Layout interno
+      inner: 'max-w-7xl mx-auto px-8 py-4 flex justify-between items-center',
+      // Logo con gradiente
+      logo: 'text-2xl font-bold bg-gradient-to-r from-slate-900 via-blue-800 to-emerald-600 bg-clip-text text-transparent',
+      // Navegación (oculta en móvil)
+      nav: 'hidden md:flex gap-8',
+      // Links normales
+      link: 'text-slate-600 hover:text-emerald-600 transition-colors duration-200',
+      // Link activo
+      linkActive: 'text-emerald-600 font-medium',
     },
   },
 
