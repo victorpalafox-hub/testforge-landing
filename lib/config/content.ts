@@ -66,6 +66,33 @@ export interface HeaderContent {
   navigation: NavLink[]
 }
 
+export interface FooterLink {
+  /** Texto del enlace */
+  label: string
+  /** URL del enlace */
+  href: string
+}
+
+export interface FooterContent {
+  /** Sección "Sobre nosotros" */
+  about: {
+    title: string
+    description: string
+  }
+  /** Sección de enlaces */
+  links: {
+    title: string
+    items: FooterLink[]
+  }
+  /** Sección de contacto */
+  contact: {
+    title: string
+    email: string
+  }
+  /** Texto de copyright */
+  copyright: string
+}
+
 export interface CatalogContent {
   /** Título de la sección del catálogo */
   title: string
@@ -113,10 +140,7 @@ export interface ContentConfig {
     viewProducts: string
     contactSales: string
   }
-  footer: {
-    copyright: string
-    links: Array<{ label: string; href: string }>
-  }
+  footer: FooterContent
 }
 
 // ============================================
@@ -254,14 +278,27 @@ export const CTA = {
 
 /**
  * Footer
+ *
+ * Configuración del pie de página con 3 secciones.
  */
-export const FOOTER = {
-  copyright: `© ${new Date().getFullYear()} DataMarket. Todos los derechos reservados.`,
-  links: [
-    { label: 'Términos de uso', href: '/terminos' },
-    { label: 'Privacidad', href: '/privacidad' },
-    { label: 'Contacto', href: '/contacto' },
-  ],
+export const FOOTER: FooterContent = {
+  about: {
+    title: 'Sobre Nosotros',
+    description: 'Datos profesionales para equipos de desarrollo y testing en México. Datasets curados y verificados para potenciar tus proyectos.',
+  },
+  links: {
+    title: 'Enlaces',
+    items: [
+      { label: 'Términos y Condiciones', href: '/terminos' },
+      { label: 'Política de Privacidad', href: '/privacidad' },
+      { label: 'Preguntas Frecuentes', href: '/faq' },
+    ],
+  },
+  contact: {
+    title: 'Contacto',
+    email: 'hola@datasetsmx.com',
+  },
+  copyright: `© ${new Date().getFullYear()} Datasets MX. Todos los precios en MXN. IVA incluido.`,
 }
 
 // ============================================

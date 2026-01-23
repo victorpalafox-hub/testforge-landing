@@ -46,11 +46,32 @@ export interface HeaderStyles {
   linkActive: string
 }
 
+export interface FooterStyles {
+  /** Clases del contenedor principal */
+  container: string
+  /** Clases del contenedor interno */
+  inner: string
+  /** Clases del grid */
+  grid: string
+  /** Clases de cada sección */
+  section: string
+  /** Clases del título de sección */
+  title: string
+  /** Clases de los links */
+  link: string
+  /** Clases del texto descriptivo */
+  text: string
+  /** Clases del copyright */
+  copyright: string
+}
+
 export interface BrandStyles {
   /** Estilos de tabs de navegación */
   tab: TabStyles
   /** Estilos del header */
   header: HeaderStyles
+  /** Estilos del footer */
+  footer: FooterStyles
 }
 
 export interface BrandConfig {
@@ -139,6 +160,24 @@ export const BRAND: BrandConfig = {
       link: 'text-slate-600 hover:text-emerald-600 transition-colors duration-200',
       // Link activo
       linkActive: 'text-emerald-600 font-medium',
+    },
+    footer: {
+      // Fondo oscuro
+      container: 'bg-slate-900 text-slate-300 border-t border-slate-800',
+      // Layout interno
+      inner: 'max-w-7xl mx-auto px-8 py-12',
+      // Grid responsive
+      grid: 'grid grid-cols-1 md:grid-cols-3 gap-8',
+      // Secciones
+      section: 'space-y-4',
+      // Títulos de sección
+      title: 'text-white font-semibold text-lg',
+      // Links con hover verde
+      link: 'text-slate-400 hover:text-emerald-400 transition-colors duration-200 block',
+      // Texto descriptivo
+      text: 'text-slate-400 text-sm leading-relaxed',
+      // Copyright
+      copyright: 'mt-8 pt-8 border-t border-slate-800 text-center text-slate-500 text-sm',
     },
   },
 
