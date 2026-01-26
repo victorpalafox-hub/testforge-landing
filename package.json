@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "validate:hardcodes": "npx tsx scripts/validate-no-hardcodes.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.91.0",
@@ -21,6 +22,8 @@
   },
   "devDependencies": {
     "@types/node": "^25.0.10",
+    "glob": "^11.0.0",
+    "tsx": "^4.7.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.23",
