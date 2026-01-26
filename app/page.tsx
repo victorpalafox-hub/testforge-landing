@@ -1,16 +1,16 @@
-import { supabase } from '@/lib/supabase/client'
-import { Download } from 'lucide-react'
-import { BRAND } from '@/lib/config/brand'
-import { CONTENT } from '@/lib/config/content'
-import { BenefitIcon } from '@/components/ui/BenefitIcon'
-import { CatalogSection } from '@/components/products/CatalogSection'
+import { supabase } from '@/lib/supabase/client';
+import { Download } from 'lucide-react';
+import { BRAND } from '@/lib/config/brand';
+import { CONTENT } from '@/lib/config/content';
+import { BenefitIcon } from '@/components/ui/BenefitIcon';
+import { CatalogSection } from '@/components/products/CatalogSection';
 
 export default async function Home() {
   const { data: datasets, error } = await supabase
     .from('datasets')
     .select('*')
     .eq('is_published', true)
-    .order('created_at', { ascending: false })
+    .order('created_at', { ascending: false });
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 font-sans">
@@ -42,9 +42,7 @@ export default async function Home() {
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 mb-8">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-sm font-medium text-slate-600">
-                  {BRAND.tagline}
-                </span>
+                <span className="text-sm font-medium text-slate-600">{BRAND.tagline}</span>
               </div>
 
               {/* Title with gradient */}
@@ -70,8 +68,8 @@ export default async function Home() {
                       button.variant === 'primary'
                         ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:-translate-y-0.5'
                         : button.variant === 'outline'
-                        ? 'bg-white hover:bg-emerald-50 text-emerald-600 border-2 border-emerald-500 hover:border-emerald-600 shadow-sm'
-                        : 'bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 hover:border-slate-300 shadow-sm'
+                          ? 'bg-white hover:bg-emerald-50 text-emerald-600 border-2 border-emerald-500 hover:border-emerald-600 shadow-sm'
+                          : 'bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 hover:border-slate-300 shadow-sm'
                     }`}
                   >
                     {button.download && <Download className="w-5 h-5" />}
@@ -100,10 +98,7 @@ export default async function Home() {
                     background: `linear-gradient(135deg, ${BRAND.colors.accent}15, ${BRAND.colors.secondary}15)`,
                   }}
                 >
-                  <BenefitIcon
-                    icon={benefit.icon}
-                    className="w-6 h-6 text-blue-600"
-                  />
+                  <BenefitIcon icon={benefit.icon} className="w-6 h-6 text-blue-600" />
                 </div>
 
                 {/* Title */}
@@ -112,9 +107,7 @@ export default async function Home() {
                 </h3>
 
                 {/* Description */}
-                <p className="text-slate-600 text-sm leading-relaxed">
-                  {benefit.description}
-                </p>
+                <p className="text-slate-600 text-sm leading-relaxed">{benefit.description}</p>
               </div>
             ))}
           </div>
@@ -126,5 +119,5 @@ export default async function Home() {
         <CatalogSection datasets={datasets} error={!!error} />
       </div>
     </div>
-  )
+  );
 }

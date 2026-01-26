@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import {
   Database,
@@ -9,12 +9,12 @@ import {
   HeadphonesIcon,
   Lock,
   RefreshCw,
-} from 'lucide-react'
-import type { Benefit } from '@/lib/config/content'
+} from 'lucide-react';
+import type { Benefit } from '@/lib/config/content';
 
 interface BenefitIconProps {
-  icon: Benefit['icon']
-  className?: string
+  icon: Benefit['icon'];
+  className?: string;
 }
 
 const iconMap = {
@@ -26,9 +26,9 @@ const iconMap = {
   support: HeadphonesIcon,
   lock: Lock,
   refresh: RefreshCw,
-} as const
+} as const;
 
 export function BenefitIcon({ icon, className = 'w-6 h-6' }: BenefitIconProps) {
-  const IconComponent = iconMap[icon]
-  return <IconComponent className={className} />
+  const IconComponent = iconMap[icon];
+  return <IconComponent className={className} />;
 }

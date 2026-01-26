@@ -20,13 +20,13 @@ const INCLUDE_EXTENSIONS = ['.ts', '.tsx', '.js', '.jsx'];
 
 async function validateNoHardcodes() {
   const files = await glob('**/*', {
-    ignore: EXCLUDE_DIRS.map(d => `**/${d}/**`),
+    ignore: EXCLUDE_DIRS.map((d) => `**/${d}/**`),
   });
 
   const issues: { file: string; line: number; match: string }[] = [];
 
   for (const file of files) {
-    if (!INCLUDE_EXTENSIONS.some(ext => file.endsWith(ext))) continue;
+    if (!INCLUDE_EXTENSIONS.some((ext) => file.endsWith(ext))) continue;
     if (file.includes('config/')) continue; // Config files are OK
     if (file.includes('scripts/')) continue; // Scripts are OK
 
@@ -34,7 +34,7 @@ async function validateNoHardcodes() {
     const lines = content.split('\n');
 
     lines.forEach((line, index) => {
-      FORBIDDEN_PATTERNS.forEach(pattern => {
+      FORBIDDEN_PATTERNS.forEach((pattern) => {
         const matches = line.match(pattern);
         if (matches) {
           issues.push({

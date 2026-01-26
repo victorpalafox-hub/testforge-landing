@@ -1,0 +1,22 @@
+# Dependencies
+node_modules
+
+# Build outputs
+.next
+out
+dist
+build
+
+# Coverage
+coverage
+
+# Minified files
+*.min.js
+
+# Lock files (auto-generated)
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Public assets that shouldn't be formatted
+public/muestras

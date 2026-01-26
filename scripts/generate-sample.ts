@@ -5,9 +5,9 @@
  * o: npx ts-node scripts/generate-sample.ts
  */
 
-import * as XLSX from 'xlsx'
-import * as path from 'path'
-import * as fs from 'fs'
+import * as XLSX from 'xlsx';
+import * as path from 'path';
+import * as fs from 'fs';
 
 // ============================================
 // DATOS FICTICIOS PERO VÁLIDOS
@@ -19,27 +19,27 @@ const rfcsData = [
     RFC: 'GALA850312HN5',
     'Nombre Completo': 'García López Ana María',
     'Fecha Nacimiento': '1985-03-12',
-    Tipo: 'Física'
+    Tipo: 'Física',
   },
   {
     RFC: 'PELJ900718QR2',
     'Nombre Completo': 'Pérez Luna Juan Carlos',
     'Fecha Nacimiento': '1990-07-18',
-    Tipo: 'Física'
+    Tipo: 'Física',
   },
   {
     RFC: 'TEC150623AB1',
     'Nombre Completo': 'Tecnologías Ejemplo SA de CV',
     'Fecha Constitución': '2015-06-23',
-    Tipo: 'Moral'
+    Tipo: 'Moral',
   },
   {
     RFC: 'MARS880425KL8',
     'Nombre Completo': 'Martínez Ríos Sofía',
     'Fecha Nacimiento': '1988-04-25',
-    Tipo: 'Física'
-  }
-]
+    Tipo: 'Física',
+  },
+];
 
 // CURPs ficticios (18 caracteres, formato válido)
 const curpsData = [
@@ -50,7 +50,7 @@ const curpsData = [
     'Apellido Materno': 'López',
     'Fecha Nacimiento': '1985-03-12',
     Sexo: 'M',
-    'Estado Nacimiento': 'DF'
+    'Estado Nacimiento': 'DF',
   },
   {
     CURP: 'PELJ900718HDFRNN05',
@@ -59,7 +59,7 @@ const curpsData = [
     'Apellido Materno': 'Luna',
     'Fecha Nacimiento': '1990-07-18',
     Sexo: 'H',
-    'Estado Nacimiento': 'DF'
+    'Estado Nacimiento': 'DF',
   },
   {
     CURP: 'MARS880425MDFRTF08',
@@ -68,9 +68,9 @@ const curpsData = [
     'Apellido Materno': 'Ríos',
     'Fecha Nacimiento': '1988-04-25',
     Sexo: 'M',
-    'Estado Nacimiento': 'DF'
-  }
-]
+    'Estado Nacimiento': 'DF',
+  },
+];
 
 // Direcciones ficticias (CPs reales de CDMX)
 const direccionesData = [
@@ -82,7 +82,7 @@ const direccionesData = [
     'Código Postal': '03100',
     Municipio: 'Benito Juárez',
     Estado: 'Ciudad de México',
-    Referencias: 'Entre Eugenia y Xola'
+    Referencias: 'Entre Eugenia y Xola',
   },
   {
     Calle: 'Calle Durango',
@@ -92,7 +92,7 @@ const direccionesData = [
     'Código Postal': '06700',
     Municipio: 'Cuauhtémoc',
     Estado: 'Ciudad de México',
-    Referencias: 'Frente al parque'
+    Referencias: 'Frente al parque',
   },
   {
     Calle: 'Av. Revolución',
@@ -102,9 +102,9 @@ const direccionesData = [
     'Código Postal': '01000',
     Municipio: 'Álvaro Obregón',
     Estado: 'Ciudad de México',
-    Referencias: 'A una cuadra del metro'
-  }
-]
+    Referencias: 'A una cuadra del metro',
+  },
+];
 
 // Usuarios ficticios
 const usuariosData = [
@@ -115,7 +115,7 @@ const usuariosData = [
     Teléfono: '+52 55 1234 5678',
     RFC: 'GALA850312HN5',
     CURP: 'GALA850312MDFRZN09',
-    'Fecha Registro': '2024-01-15'
+    'Fecha Registro': '2024-01-15',
   },
   {
     ID: 'USR-002',
@@ -124,7 +124,7 @@ const usuariosData = [
     Teléfono: '+52 55 9876 5432',
     RFC: 'PELJ900718QR2',
     CURP: 'PELJ900718HDFRNN05',
-    'Fecha Registro': '2024-02-20'
+    'Fecha Registro': '2024-02-20',
   },
   {
     ID: 'USR-003',
@@ -133,43 +133,43 @@ const usuariosData = [
     Teléfono: '+52 55 5555 1234',
     RFC: 'MARS880425KL8',
     CURP: 'MARS880425MDFRTF08',
-    'Fecha Registro': '2024-03-10'
-  }
-]
+    'Fecha Registro': '2024-03-10',
+  },
+];
 
 // Transacciones ficticias
 const transaccionesData = [
   {
     ID: 'TXN-2024-001',
     Fecha: '2024-06-15',
-    'Monto MXN': 145.00,
+    'Monto MXN': 145.0,
     'Método Pago': 'Tarjeta de Crédito',
     Estatus: 'Completada',
     Producto: 'Dataset RFCs México',
     Cantidad: 1,
-    Total: 145.00
+    Total: 145.0,
   },
   {
     ID: 'TXN-2024-002',
     Fecha: '2024-06-18',
-    'Monto MXN': 475.00,
+    'Monto MXN': 475.0,
     'Método Pago': 'Transferencia SPEI',
     Estatus: 'Completada',
     Producto: 'Bundle Identidad Completo',
     Cantidad: 1,
-    Total: 475.00
+    Total: 475.0,
   },
   {
     ID: 'TXN-2024-003',
     Fecha: '2024-06-20',
-    'Monto MXN': 235.00,
+    'Monto MXN': 235.0,
     'Método Pago': 'PayPal',
     Estatus: 'Pendiente',
     Producto: 'Dataset Direcciones',
     Cantidad: 1,
-    Total: 235.00
-  }
-]
+    Total: 235.0,
+  },
+];
 
 // README
 const readmeData = [
@@ -189,8 +189,8 @@ const readmeData = [
   { Contenido: 'Descarga datasets completos en:' },
   { Contenido: 'https://datasetsmx.com' },
   { Contenido: '' },
-  { Contenido: 'Contacto: hola@datasetsmx.com' }
-]
+  { Contenido: 'Contacto: hola@datasetsmx.com' },
+];
 
 // AVISO LEGAL
 const avisoLegalData = [
@@ -220,8 +220,8 @@ const avisoLegalData = [
   { Contenido: 'El uso indebido es responsabilidad exclusiva del usuario.' },
   { Contenido: 'Datasets MX no se responsabiliza por mal uso.' },
   { Contenido: '' },
-  { Contenido: '© 2026 Datasets MX. Todos los derechos reservados.' }
-]
+  { Contenido: '© 2026 Datasets MX. Todos los derechos reservados.' },
+];
 
 // ============================================
 // GENERAR ARCHIVO XLSX
@@ -229,66 +229,66 @@ const avisoLegalData = [
 
 function generateSampleFile() {
   // Crear workbook
-  const wb = XLSX.utils.book_new()
+  const wb = XLSX.utils.book_new();
 
   // Agregar hojas
-  const wsRFCs = XLSX.utils.json_to_sheet(rfcsData)
-  XLSX.utils.book_append_sheet(wb, wsRFCs, 'RFCs')
+  const wsRFCs = XLSX.utils.json_to_sheet(rfcsData);
+  XLSX.utils.book_append_sheet(wb, wsRFCs, 'RFCs');
 
-  const wsCURPs = XLSX.utils.json_to_sheet(curpsData)
-  XLSX.utils.book_append_sheet(wb, wsCURPs, 'CURPs')
+  const wsCURPs = XLSX.utils.json_to_sheet(curpsData);
+  XLSX.utils.book_append_sheet(wb, wsCURPs, 'CURPs');
 
-  const wsDirecciones = XLSX.utils.json_to_sheet(direccionesData)
-  XLSX.utils.book_append_sheet(wb, wsDirecciones, 'Direcciones')
+  const wsDirecciones = XLSX.utils.json_to_sheet(direccionesData);
+  XLSX.utils.book_append_sheet(wb, wsDirecciones, 'Direcciones');
 
-  const wsUsuarios = XLSX.utils.json_to_sheet(usuariosData)
-  XLSX.utils.book_append_sheet(wb, wsUsuarios, 'Usuarios')
+  const wsUsuarios = XLSX.utils.json_to_sheet(usuariosData);
+  XLSX.utils.book_append_sheet(wb, wsUsuarios, 'Usuarios');
 
-  const wsTransacciones = XLSX.utils.json_to_sheet(transaccionesData)
-  XLSX.utils.book_append_sheet(wb, wsTransacciones, 'Transacciones')
+  const wsTransacciones = XLSX.utils.json_to_sheet(transaccionesData);
+  XLSX.utils.book_append_sheet(wb, wsTransacciones, 'Transacciones');
 
-  const wsReadme = XLSX.utils.json_to_sheet(readmeData)
-  XLSX.utils.book_append_sheet(wb, wsReadme, 'README')
+  const wsReadme = XLSX.utils.json_to_sheet(readmeData);
+  XLSX.utils.book_append_sheet(wb, wsReadme, 'README');
 
-  const wsAvisoLegal = XLSX.utils.json_to_sheet(avisoLegalData)
-  XLSX.utils.book_append_sheet(wb, wsAvisoLegal, 'AVISO_LEGAL')
+  const wsAvisoLegal = XLSX.utils.json_to_sheet(avisoLegalData);
+  XLSX.utils.book_append_sheet(wb, wsAvisoLegal, 'AVISO_LEGAL');
 
   // Ajustar anchos de columna
   const setColumnWidths = (ws: XLSX.WorkSheet, widths: number[]) => {
-    ws['!cols'] = widths.map(w => ({ wch: w }))
-  }
+    ws['!cols'] = widths.map((w) => ({ wch: w }));
+  };
 
-  setColumnWidths(wsRFCs, [18, 30, 15, 10])
-  setColumnWidths(wsCURPs, [20, 15, 18, 18, 15, 8, 12])
-  setColumnWidths(wsDirecciones, [25, 15, 15, 20, 12, 20, 20, 30])
-  setColumnWidths(wsUsuarios, [10, 30, 35, 18, 18, 20, 15])
-  setColumnWidths(wsTransacciones, [15, 12, 12, 20, 12, 25, 10, 12])
-  setColumnWidths(wsReadme, [60])
-  setColumnWidths(wsAvisoLegal, [60])
+  setColumnWidths(wsRFCs, [18, 30, 15, 10]);
+  setColumnWidths(wsCURPs, [20, 15, 18, 18, 15, 8, 12]);
+  setColumnWidths(wsDirecciones, [25, 15, 15, 20, 12, 20, 20, 30]);
+  setColumnWidths(wsUsuarios, [10, 30, 35, 18, 18, 20, 15]);
+  setColumnWidths(wsTransacciones, [15, 12, 12, 20, 12, 25, 10, 12]);
+  setColumnWidths(wsReadme, [60]);
+  setColumnWidths(wsAvisoLegal, [60]);
 
   // Guardar archivo
-  const outputDir = path.join(process.cwd(), 'public', 'muestras')
+  const outputDir = path.join(process.cwd(), 'public', 'muestras');
 
   // Crear directorio si no existe
   if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true })
+    fs.mkdirSync(outputDir, { recursive: true });
   }
 
-  const outputPath = path.join(outputDir, 'muestra-gratuita.xlsx')
-  XLSX.writeFile(wb, outputPath)
+  const outputPath = path.join(outputDir, 'muestra-gratuita.xlsx');
+  XLSX.writeFile(wb, outputPath);
 
-  console.log('✅ Archivo generado exitosamente:')
-  console.log(`   ${outputPath}`)
-  console.log('')
-  console.log('📊 Hojas incluidas:')
-  console.log('   - RFCs (3 registros)')
-  console.log('   - CURPs (3 registros)')
-  console.log('   - Direcciones (3 registros)')
-  console.log('   - Usuarios (3 registros)')
-  console.log('   - Transacciones (3 registros)')
-  console.log('   - README')
-  console.log('   - AVISO_LEGAL')
+  console.log('✅ Archivo generado exitosamente:');
+  console.log(`   ${outputPath}`);
+  console.log('');
+  console.log('📊 Hojas incluidas:');
+  console.log('   - RFCs (3 registros)');
+  console.log('   - CURPs (3 registros)');
+  console.log('   - Direcciones (3 registros)');
+  console.log('   - Usuarios (3 registros)');
+  console.log('   - Transacciones (3 registros)');
+  console.log('   - README');
+  console.log('   - AVISO_LEGAL');
 }
 
 // Ejecutar
-generateSampleFile()
+generateSampleFile();

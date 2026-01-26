@@ -11,96 +11,96 @@
 
 export interface BrandColors {
   /** Color principal - usado en headers, CTAs principales */
-  primary: string
+  primary: string;
   /** Color secundario - usado en elementos de éxito, precios */
-  secondary: string
+  secondary: string;
   /** Color de acento - usado en badges, enlaces, highlights */
-  accent: string
+  accent: string;
   /** Fondo principal */
-  background: string
+  background: string;
   /** Fondo secundario para secciones alternadas */
-  backgroundAlt: string
+  backgroundAlt: string;
 }
 
 export interface TabStyles {
   /** Clases para tab activo */
-  active: string
+  active: string;
   /** Clases para tab inactivo */
-  inactive: string
+  inactive: string;
   /** Clases para el contenedor de tabs */
-  container: string
+  container: string;
 }
 
 export interface HeaderStyles {
   /** Clases del contenedor principal */
-  container: string
+  container: string;
   /** Clases del contenedor interno */
-  inner: string
+  inner: string;
   /** Clases del logo/nombre */
-  logo: string
+  logo: string;
   /** Clases del contenedor de navegación */
-  nav: string
+  nav: string;
   /** Clases de links de navegación */
-  link: string
+  link: string;
   /** Clases de link activo */
-  linkActive: string
+  linkActive: string;
 }
 
 export interface FooterStyles {
   /** Clases del contenedor principal */
-  container: string
+  container: string;
   /** Clases del contenedor interno */
-  inner: string
+  inner: string;
   /** Clases del grid */
-  grid: string
+  grid: string;
   /** Clases de cada sección */
-  section: string
+  section: string;
   /** Clases del título de sección */
-  title: string
+  title: string;
   /** Clases de los links */
-  link: string
+  link: string;
   /** Clases del texto descriptivo */
-  text: string
+  text: string;
   /** Clases del copyright */
-  copyright: string
+  copyright: string;
 }
 
 export interface BrandStyles {
   /** Estilos de tabs de navegación */
-  tab: TabStyles
+  tab: TabStyles;
   /** Estilos del header */
-  header: HeaderStyles
+  header: HeaderStyles;
   /** Estilos del footer */
-  footer: FooterStyles
+  footer: FooterStyles;
 }
 
 export interface BrandConfig {
   /** Nombre del marketplace */
-  name: string
+  name: string;
   /** Eslogan corto que aparece junto al logo */
-  tagline: string
+  tagline: string;
   /** Descripción para SEO (meta description) */
-  metaDescription: string
+  metaDescription: string;
   /** Paleta de colores del brand */
-  colors: BrandColors
+  colors: BrandColors;
   /** Estilos de componentes reutilizables */
-  styles: BrandStyles
+  styles: BrandStyles;
   /** Rutas de assets del logo */
   logo: {
     /** Logo principal (claro, para fondos oscuros) */
-    light: string
+    light: string;
     /** Logo para fondos claros */
-    dark: string
+    dark: string;
     /** Favicon */
-    favicon: string
-  }
+    favicon: string;
+  };
   /** Redes sociales y contacto */
   social: {
-    twitter?: string
-    linkedin?: string
-    github?: string
-    email?: string
-  }
+    twitter?: string;
+    linkedin?: string;
+    github?: string;
+    email?: string;
+  };
 }
 
 // ============================================
@@ -124,14 +124,15 @@ export const BRAND: BrandConfig = {
   tagline: 'Datasets premium para decisiones inteligentes',
 
   // Meta description para SEO - máximo 160 caracteres
-  metaDescription: 'Marketplace de datasets de alta calidad. Encuentra datos curados para análisis, machine learning e inteligencia artificial. Compra segura y descarga inmediata.',
+  metaDescription:
+    'Marketplace de datasets de alta calidad. Encuentra datos curados para análisis, machine learning e inteligencia artificial. Compra segura y descarga inmediata.',
 
   // Paleta de colores
   // Usa formato hexadecimal (#RRGGBB)
   colors: {
-    primary: '#0F172A',    // Slate 900 - Headers, texto principal
-    secondary: '#10B981',  // Emerald 500 - Precios, éxito, CTAs
-    accent: '#3B82F6',     // Blue 500 - Enlaces, badges, highlights
+    primary: '#0F172A', // Slate 900 - Headers, texto principal
+    secondary: '#10B981', // Emerald 500 - Precios, éxito, CTAs
+    accent: '#3B82F6', // Blue 500 - Enlaces, badges, highlights
     background: '#F8FAFC', // Slate 50 - Fondo principal
     backgroundAlt: '#EFF6FF', // Blue 50 - Fondo alternativo
   },
@@ -141,11 +142,14 @@ export const BRAND: BrandConfig = {
   styles: {
     tab: {
       // Tab activo: fondo con gradiente, texto blanco, sombra
-      active: 'bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-lg shadow-emerald-500/25',
+      active:
+        'bg-gradient-to-r from-emerald-600 to-emerald-500 text-white shadow-lg shadow-emerald-500/25',
       // Tab inactivo: fondo transparente, texto gris, hover sutil
-      inactive: 'bg-white/60 text-slate-600 hover:bg-white hover:text-slate-900 border border-slate-200/50',
+      inactive:
+        'bg-white/60 text-slate-600 hover:bg-white hover:text-slate-900 border border-slate-200/50',
       // Contenedor: fondo glassmorphism, padding, rounded
-      container: 'inline-flex items-center gap-2 p-1.5 bg-white/80 backdrop-blur-sm rounded-xl border border-slate-200/50 shadow-sm',
+      container:
+        'inline-flex items-center gap-2 p-1.5 bg-white/80 backdrop-blur-sm rounded-xl border border-slate-200/50 shadow-sm',
     },
     header: {
       // Contenedor sticky con glassmorphism
@@ -195,7 +199,7 @@ export const BRAND: BrandConfig = {
     github: 'https://github.com/datamarket',
     email: 'contacto@datamarket.com',
   },
-}
+};
 
 // ============================================
 // COLORES PARA TAILWIND
@@ -217,4 +221,4 @@ export const brandColors = {
     bg: BRAND.colors.background,
     'bg-alt': BRAND.colors.backgroundAlt,
   },
-} as const
+} as const;

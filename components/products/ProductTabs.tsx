@@ -1,22 +1,22 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { BRAND } from '@/lib/config/brand'
-import { CONTENT } from '@/lib/config/content'
+import { useState } from 'react';
+import { BRAND } from '@/lib/config/brand';
+import { CONTENT } from '@/lib/config/content';
 
 // ============================================
 // TIPOS
 // ============================================
 
 /** Tipos de tabs disponibles */
-export type ProductTabType = 'individual' | 'bundles'
+export type ProductTabType = 'individual' | 'bundles';
 
 /** Props del componente ProductTabs */
 export interface ProductTabsProps {
   /** Callback cuando cambia el tab activo */
-  onTabChange: (tab: ProductTabType) => void
+  onTabChange: (tab: ProductTabType) => void;
   /** Tab inicial seleccionado */
-  defaultTab?: ProductTabType
+  defaultTab?: ProductTabType;
 }
 
 // ============================================
@@ -32,17 +32,17 @@ export interface ProductTabsProps {
  * ```
  */
 export function ProductTabs({ onTabChange, defaultTab = 'individual' }: ProductTabsProps) {
-  const [activeTab, setActiveTab] = useState<ProductTabType>(defaultTab)
+  const [activeTab, setActiveTab] = useState<ProductTabType>(defaultTab);
 
   const handleTabChange = (tab: ProductTabType) => {
-    setActiveTab(tab)
-    onTabChange(tab)
-  }
+    setActiveTab(tab);
+    onTabChange(tab);
+  };
 
   const tabs: { key: ProductTabType; label: string }[] = [
     { key: 'individual', label: CONTENT.tabs.individual.label },
     { key: 'bundles', label: CONTENT.tabs.bundles.label },
-  ]
+  ];
 
   return (
     <div className={BRAND.styles.tab.container}>
@@ -61,5 +61,5 @@ export function ProductTabs({ onTabChange, defaultTab = 'individual' }: ProductT
         </button>
       ))}
     </div>
-  )
+  );
 }

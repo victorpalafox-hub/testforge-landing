@@ -11,153 +11,153 @@
 
 export interface HeroCTA {
   /** Texto del botón */
-  text: string
+  text: string;
   /** URL del enlace */
-  href: string
+  href: string;
   /** Variante de estilo */
-  variant: 'primary' | 'secondary' | 'outline'
+  variant: 'primary' | 'secondary' | 'outline';
   /** Si es descarga directa */
-  download?: boolean
+  download?: boolean;
 }
 
 export interface HeroContent {
   /** Título principal del hero - soporta HTML para estilos */
-  title: string
+  title: string;
   /** Subtítulo descriptivo */
-  subtitle: string
+  subtitle: string;
   /** Texto del botón principal CTA (legacy) */
-  ctaText: string
+  ctaText: string;
   /** Texto del botón secundario (legacy) */
-  ctaSecondaryText?: string
+  ctaSecondaryText?: string;
   /** Botones CTA configurables */
-  buttons: HeroCTA[]
+  buttons: HeroCTA[];
 }
 
 export interface Benefit {
   /** Nombre del ícono (Heroicons) */
-  icon: 'database' | 'shield' | 'lightning' | 'chart' | 'download' | 'support' | 'lock' | 'refresh'
+  icon: 'database' | 'shield' | 'lightning' | 'chart' | 'download' | 'support' | 'lock' | 'refresh';
   /** Título corto del beneficio */
-  title: string
+  title: string;
   /** Descripción del beneficio - 1-2 oraciones */
-  description: string
+  description: string;
 }
 
 export interface WhyUsItem {
   /** Número o estadística destacada */
-  stat: string
+  stat: string;
   /** Etiqueta descriptiva */
-  label: string
+  label: string;
 }
 
 export interface TabContent {
   /** Etiqueta del tab */
-  label: string
+  label: string;
   /** Descripción corta del tab */
-  description: string
+  description: string;
 }
 
 export interface TabsConfig {
   /** Tab de productos individuales */
-  individual: TabContent
+  individual: TabContent;
   /** Tab de paquetes/bundles */
-  bundles: TabContent
+  bundles: TabContent;
 }
 
 export interface NavLink {
   /** Texto del enlace */
-  label: string
+  label: string;
   /** URL o anchor del enlace */
-  href: string
+  href: string;
   /** Identificador único */
-  id: string
+  id: string;
   /** Si es un enlace de descarga */
-  download?: boolean
+  download?: boolean;
   /** Badge opcional (ej: "GRATIS") */
-  badge?: string
+  badge?: string;
 }
 
 export interface HeaderContent {
   /** Nombre de la marca en el header */
-  brandName: string
+  brandName: string;
   /** Links de navegación */
-  navigation: NavLink[]
+  navigation: NavLink[];
 }
 
 export interface FooterLink {
   /** Texto del enlace */
-  label: string
+  label: string;
   /** URL del enlace */
-  href: string
+  href: string;
 }
 
 export interface FooterContent {
   /** Sección "Sobre nosotros" */
   about: {
-    title: string
-    description: string
-  }
+    title: string;
+    description: string;
+  };
   /** Sección de enlaces */
   links: {
-    title: string
-    items: FooterLink[]
-  }
+    title: string;
+    items: FooterLink[];
+  };
   /** Sección de contacto */
   contact: {
-    title: string
-    email: string
-  }
+    title: string;
+    email: string;
+  };
   /** Texto de copyright */
-  copyright: string
+  copyright: string;
 }
 
 export interface CatalogContent {
   /** Título de la sección del catálogo */
-  title: string
+  title: string;
   /** Título alternativo para bundles */
-  titleBundles: string
+  titleBundles: string;
   /** Subtítulo descriptivo */
-  subtitle: string
+  subtitle: string;
   /** Subtítulo para bundles */
-  subtitleBundles: string
+  subtitleBundles: string;
   /** Mensaje cuando no hay datasets */
-  emptyTitle: string
+  emptyTitle: string;
   /** Mensaje secundario cuando no hay datasets */
-  emptySubtitle: string
+  emptySubtitle: string;
   /** Mensaje cuando no hay bundles */
-  emptyBundlesTitle: string
+  emptyBundlesTitle: string;
   /** Mensaje secundario cuando no hay bundles */
-  emptyBundlesSubtitle: string
+  emptyBundlesSubtitle: string;
   /** Mensaje de error */
-  errorMessage: string
+  errorMessage: string;
   /** Mensaje de error para bundles */
-  errorMessageBundles: string
+  errorMessageBundles: string;
   /** Mensaje de carga de bundles */
-  loadingBundles: string
+  loadingBundles: string;
   /** Mensaje de "próximamente" */
-  comingSoon: string
+  comingSoon: string;
   /** Subtítulo de coming soon */
-  comingSoonSubtitle: string
+  comingSoonSubtitle: string;
 }
 
 export interface ContentConfig {
-  header: HeaderContent
-  hero: HeroContent
-  benefits: Benefit[]
-  tabs: TabsConfig
-  catalog: CatalogContent
+  header: HeaderContent;
+  hero: HeroContent;
+  benefits: Benefit[];
+  tabs: TabsConfig;
+  catalog: CatalogContent;
   whyUs: {
-    title: string
-    subtitle: string
-    items: WhyUsItem[]
-  }
+    title: string;
+    subtitle: string;
+    items: WhyUsItem[];
+  };
   cta: {
-    title: string
-    subtitle: string
-    buttonText: string
-    viewProducts: string
-    contactSales: string
-  }
-  footer: FooterContent
+    title: string;
+    subtitle: string;
+    buttonText: string;
+    viewProducts: string;
+    contactSales: string;
+  };
+  footer: FooterContent;
 }
 
 // ============================================
@@ -176,10 +176,16 @@ export const HEADER: HeaderContent = {
   navigation: [
     { label: 'Inicio', href: '/', id: 'inicio' },
     { label: 'Catálogo', href: '#catalogo', id: 'catalogo' },
-    { label: 'Muestra', href: '/muestras/muestra-gratuita.xlsx', id: 'muestra', download: true, badge: 'GRATIS' },
+    {
+      label: 'Muestra',
+      href: '/muestras/muestra-gratuita.xlsx',
+      id: 'muestra',
+      download: true,
+      badge: 'GRATIS',
+    },
     { label: 'Contacto', href: '#contacto', id: 'contacto' },
   ],
-}
+};
 
 /**
  * Contenido del Hero Section
@@ -191,14 +197,20 @@ export const HEADER: HeaderContent = {
  */
 export const HERO: HeroContent = {
   title: 'Marketplace de Datasets',
-  subtitle: 'Descubre datasets premium de alta calidad, curados por expertos para potenciar tus proyectos de análisis, machine learning e inteligencia artificial.',
+  subtitle:
+    'Descubre datasets premium de alta calidad, curados por expertos para potenciar tus proyectos de análisis, machine learning e inteligencia artificial.',
   ctaText: 'Explorar Datasets',
   ctaSecondaryText: 'Conocer más',
   buttons: [
     { text: 'Ver Datasets', href: '#catalogo', variant: 'primary' },
-    { text: 'Descarga Muestra Gratis', href: '/muestras/muestra-gratuita.xlsx', variant: 'outline', download: true },
+    {
+      text: 'Descarga Muestra Gratis',
+      href: '/muestras/muestra-gratuita.xlsx',
+      variant: 'outline',
+      download: true,
+    },
   ],
-}
+};
 
 /**
  * Beneficios del marketplace
@@ -212,24 +224,28 @@ export const BENEFITS: Benefit[] = [
   {
     icon: 'database',
     title: 'Datos Verificados',
-    description: 'Cada dataset pasa por un riguroso proceso de validación para garantizar precisión y consistencia en la información.',
+    description:
+      'Cada dataset pasa por un riguroso proceso de validación para garantizar precisión y consistencia en la información.',
   },
   {
     icon: 'shield',
     title: 'Compra Segura',
-    description: 'Transacciones protegidas con encriptación de grado bancario. Tu información financiera siempre está segura.',
+    description:
+      'Transacciones protegidas con encriptación de grado bancario. Tu información financiera siempre está segura.',
   },
   {
     icon: 'lightning',
     title: 'Descarga Inmediata',
-    description: 'Accede a tus datasets al instante después de la compra. Sin tiempos de espera, sin complicaciones.',
+    description:
+      'Accede a tus datasets al instante después de la compra. Sin tiempos de espera, sin complicaciones.',
   },
   {
     icon: 'refresh',
     title: 'Actualizaciones Incluidas',
-    description: 'Recibe actualizaciones gratuitas de los datasets por 12 meses. Mantén tus datos siempre frescos.',
+    description:
+      'Recibe actualizaciones gratuitas de los datasets por 12 meses. Mantén tus datos siempre frescos.',
   },
-]
+];
 
 /**
  * Sección "Por qué elegirnos"
@@ -246,7 +262,7 @@ export const WHY_US = {
     { stat: '99.9%', label: 'Uptime garantizado' },
     { stat: '24/7', label: 'Soporte técnico' },
   ] as WhyUsItem[],
-}
+};
 
 /**
  * Tabs del catálogo
@@ -262,7 +278,7 @@ export const TABS: TabsConfig = {
     label: 'Paquetes',
     description: 'Colecciones de datasets con descuento',
   },
-}
+};
 
 /**
  * Catálogo de datasets
@@ -282,8 +298,9 @@ export const CATALOG: CatalogContent = {
   errorMessageBundles: 'Error al cargar los paquetes',
   loadingBundles: 'Cargando paquetes...',
   comingSoon: 'Paquetes disponibles pronto',
-  comingSoonSubtitle: 'Estamos preparando colecciones especiales de datasets con precios exclusivos. ¡Mantente atento!',
-}
+  comingSoonSubtitle:
+    'Estamos preparando colecciones especiales de datasets con precios exclusivos. ¡Mantente atento!',
+};
 
 /**
  * Call to Action final
@@ -296,7 +313,7 @@ export const CTA = {
   buttonText: 'Comenzar ahora',
   viewProducts: 'Ver Datasets',
   contactSales: 'Contactar Ventas',
-}
+};
 
 /**
  * Footer
@@ -306,7 +323,8 @@ export const CTA = {
 export const FOOTER: FooterContent = {
   about: {
     title: 'Sobre Nosotros',
-    description: 'Datos profesionales para equipos de desarrollo y testing en México. Datasets curados y verificados para potenciar tus proyectos.',
+    description:
+      'Datos profesionales para equipos de desarrollo y testing en México. Datasets curados y verificados para potenciar tus proyectos.',
   },
   links: {
     title: 'Enlaces',
@@ -321,7 +339,7 @@ export const FOOTER: FooterContent = {
     email: 'hola@datasetsmx.com',
   },
   copyright: `© ${new Date().getFullYear()} Datasets MX. Todos los precios en MXN. IVA incluido.`,
-}
+};
 
 // ============================================
 // EXPORTACIÓN CONSOLIDADA
@@ -345,4 +363,4 @@ export const CONTENT: ContentConfig = {
   whyUs: WHY_US,
   cta: CTA,
   footer: FOOTER,
-}
+};

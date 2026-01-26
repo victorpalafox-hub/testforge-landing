@@ -1,32 +1,37 @@
-'use client'
+'use client';
 
-import { Download } from 'lucide-react'
-import { BRAND } from '@/lib/config/brand'
-import { CONTENT } from '@/lib/config/content'
+import Link from 'next/link';
+import { Download } from 'lucide-react';
+import { BRAND } from '@/lib/config/brand';
+import { CONTENT } from '@/lib/config/content';
 
 export default function Header() {
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, isDownload?: boolean) => {
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+    isDownload?: boolean
+  ) => {
     // No interferir con descargas
-    if (isDownload) return
+    if (isDownload) return;
 
     // Solo manejar anchors (enlaces internos con #)
     if (href.startsWith('#')) {
-      e.preventDefault()
-      const targetId = href.slice(1)
-      const element = document.getElementById(targetId)
+      e.preventDefault();
+      const targetId = href.slice(1);
+      const element = document.getElementById(targetId);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
+        element.scrollIntoView({ behavior: 'smooth' });
       }
     }
-  }
+  };
 
   return (
     <header className={BRAND.styles.header.container}>
       <div className={BRAND.styles.header.inner}>
         {/* Logo / Brand Name */}
-        <a href="/" className={BRAND.styles.header.logo}>
+        <Link href="/" className={BRAND.styles.header.logo}>
           {CONTENT.header.brandName}
-        </a>
+        </Link>
 
         {/* Navigation */}
         <nav className={BRAND.styles.header.nav}>
@@ -50,5 +55,5 @@ export default function Header() {
         </nav>
       </div>
     </header>
-  )
+  );
 }

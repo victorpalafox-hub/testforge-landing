@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
 interface DatasetCardProps {
-  title: string
-  description: string
-  price_mxn: number
-  records_count: number
-  category: string
+  title: string;
+  description: string;
+  price_mxn: number;
+  records_count: number;
+  category: string;
 }
 
 export default function DatasetCard({
@@ -16,12 +16,12 @@ export default function DatasetCard({
   category,
 }: DatasetCardProps) {
   const formatPrice = (price: number): string => {
-    return `$${price.toLocaleString('es-MX')}`
-  }
+    return `$${price.toLocaleString('es-MX')}`;
+  };
 
   const formatRecords = (count: number): string => {
-    return `${count.toLocaleString('es-MX')} registros`
-  }
+    return `${count.toLocaleString('es-MX')} registros`;
+  };
 
   return (
     <div className="group relative backdrop-blur-sm bg-white/90 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col border border-white/20">
@@ -34,9 +34,7 @@ export default function DatasetCard({
       </span>
 
       {/* Título */}
-      <h3 className="text-xl font-bold tracking-tight text-slate-900 pr-24 mb-3">
-        {title}
-      </h3>
+      <h3 className="text-xl font-bold tracking-tight text-slate-900 pr-24 mb-3">{title}</h3>
 
       {/* Descripción */}
       <p className="text-slate-600 text-sm leading-relaxed mb-5 line-clamp-2 flex-grow">
@@ -46,7 +44,12 @@ export default function DatasetCard({
       {/* Cantidad de registros con icono */}
       <div className="flex items-center gap-2 text-slate-500 text-sm mb-4">
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"
+          />
         </svg>
         {formatRecords(records_count)}
       </div>
@@ -67,5 +70,5 @@ export default function DatasetCard({
         Comprar ahora
       </button>
     </div>
-  )
+  );
 }

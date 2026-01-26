@@ -1,20 +1,20 @@
-'use client'
+'use client';
 
-import { Check } from 'lucide-react'
+import { Check } from 'lucide-react';
 
 // ============================================
 // TIPOS
 // ============================================
 
 export interface BundleCardProps {
-  id: string
-  title: string
-  description: string
-  price_mxn: number
-  original_price_mxn: number
-  discount_percentage: number
-  ideal_for: string
-  included_datasets: string[]
+  id: string;
+  title: string;
+  description: string;
+  price_mxn: number;
+  original_price_mxn: number;
+  discount_percentage: number;
+  ideal_for: string;
+  included_datasets: string[];
 }
 
 // ============================================
@@ -31,8 +31,8 @@ export default function BundleCard({
   included_datasets,
 }: BundleCardProps) {
   const formatPrice = (price: number): string => {
-    return `$${price.toLocaleString('es-MX')}`
-  }
+    return `$${price.toLocaleString('es-MX')}`;
+  };
 
   return (
     <div className="group relative backdrop-blur-sm bg-white/90 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col border border-slate-200">
@@ -45,19 +45,13 @@ export default function BundleCard({
       </span>
 
       {/* Título */}
-      <h3 className="text-xl font-bold tracking-tight text-slate-900 pr-24 mb-2">
-        {title}
-      </h3>
+      <h3 className="text-xl font-bold tracking-tight text-slate-900 pr-24 mb-2">{title}</h3>
 
       {/* Ideal para */}
-      <p className="text-sm text-blue-600 font-medium mb-3">
-        {ideal_for}
-      </p>
+      <p className="text-sm text-blue-600 font-medium mb-3">{ideal_for}</p>
 
       {/* Descripción */}
-      <p className="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-2">
-        {description}
-      </p>
+      <p className="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-2">{description}</p>
 
       {/* Datasets incluidos */}
       <div className="mb-5 flex-grow">
@@ -74,9 +68,7 @@ export default function BundleCard({
 
       {/* Precios */}
       <div className="mb-5">
-        <p className="text-lg text-slate-400 line-through">
-          {formatPrice(original_price_mxn)} MXN
-        </p>
+        <p className="text-lg text-slate-400 line-through">{formatPrice(original_price_mxn)} MXN</p>
         <p className="text-4xl font-bold tracking-tight bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">
           {formatPrice(price_mxn)}
           <span className="text-lg font-medium text-slate-400 ml-2">MXN</span>
@@ -91,5 +83,5 @@ export default function BundleCard({
         Comprar paquete
       </button>
     </div>
-  )
+  );
 }
