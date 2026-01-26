@@ -11,4 +11,4 @@ export { BRAND, brandColors } from './brand'
 export type { BrandConfig, BrandColors, BrandStyles, TabStyles, HeaderStyles, FooterStyles } from './brand'
 
 export { CONTENT, HEADER, HERO, BENEFITS, TABS, CATALOG, WHY_US, CTA, FOOTER } from './content'
-export type { HeaderContent, NavLink, HeroContent, Benefit, WhyUsItem, TabContent, TabsConfig, CatalogContent, FooterContent, FooterLink, ContentConfig } from './content'
+export type { HeaderContent, NavLink, HeroCTA, HeroContent, Benefit, WhyUsItem, TabContent, TabsConfig, CatalogContent, FooterContent, FooterLink, ContentConfig } from './content'

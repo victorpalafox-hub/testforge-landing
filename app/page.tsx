@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabase/client'
+import { Download } from 'lucide-react'
 import { BRAND } from '@/lib/config/brand'
 import { CONTENT } from '@/lib/config/content'
 import { BenefitIcon } from '@/components/ui/BenefitIcon'
@@ -60,18 +61,23 @@ export default async function Home() {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a
-                  href="#catalogo"
-                  className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:-translate-y-0.5"
-                >
-                  {CONTENT.cta.viewProducts}
-                </a>
-                <a
-                  href="/contacto"
-                  className="w-full sm:w-auto px-8 py-4 bg-white hover:bg-slate-50 text-slate-700 font-semibold rounded-xl transition-all duration-300 border border-slate-200 hover:border-slate-300 shadow-sm"
-                >
-                  {CONTENT.cta.contactSales}
-                </a>
+                {CONTENT.hero.buttons.map((button, index) => (
+                  <a
+                    key={index}
+                    href={button.href}
+                    download={button.download ? true : undefined}
+                    className={`w-full sm:w-auto px-8 py-4 font-semibold rounded-xl transition-all duration-300 inline-flex items-center justify-center gap-2 ${
+                      button.variant === 'primary'
+                        ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:-translate-y-0.5'
+                        : button.variant === 'outline'
+                        ? 'bg-white hover:bg-emerald-50 text-emerald-600 border-2 border-emerald-500 hover:border-emerald-600 shadow-sm'
+                        : 'bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 hover:border-slate-300 shadow-sm'
+                    }`}
+                  >
+                    {button.download && <Download className="w-5 h-5" />}
+                    {button.text}
+                  </a>
+                ))}
               </div>
             </div>
           </div>

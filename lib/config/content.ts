@@ -9,15 +9,28 @@
 // TIPOS
 // ============================================
 
+export interface HeroCTA {
+  /** Texto del botón */
+  text: string
+  /** URL del enlace */
+  href: string
+  /** Variante de estilo */
+  variant: 'primary' | 'secondary' | 'outline'
+  /** Si es descarga directa */
+  download?: boolean
+}
+
 export interface HeroContent {
   /** Título principal del hero - soporta HTML para estilos */
   title: string
   /** Subtítulo descriptivo */
   subtitle: string
-  /** Texto del botón principal CTA */
+  /** Texto del botón principal CTA (legacy) */
   ctaText: string
-  /** Texto del botón secundario (opcional) */
+  /** Texto del botón secundario (legacy) */
   ctaSecondaryText?: string
+  /** Botones CTA configurables */
+  buttons: HeroCTA[]
 }
 
 export interface Benefit {
@@ -57,6 +70,10 @@ export interface NavLink {
   href: string
   /** Identificador único */
   id: string
+  /** Si es un enlace de descarga */
+  download?: boolean
+  /** Badge opcional (ej: "GRATIS") */
+  badge?: string
 }
 
 export interface HeaderContent {
@@ -159,6 +176,7 @@ export const HEADER: HeaderContent = {
   navigation: [
     { label: 'Inicio', href: '/', id: 'inicio' },
     { label: 'Catálogo', href: '#catalogo', id: 'catalogo' },
+    { label: 'Muestra', href: '/muestras/muestra-gratuita.xlsx', id: 'muestra', download: true, badge: 'GRATIS' },
     { label: 'Contacto', href: '#contacto', id: 'contacto' },
   ],
 }
@@ -176,6 +194,10 @@ export const HERO: HeroContent = {
   subtitle: 'Descubre datasets premium de alta calidad, curados por expertos para potenciar tus proyectos de análisis, machine learning e inteligencia artificial.',
   ctaText: 'Explorar Datasets',
   ctaSecondaryText: 'Conocer más',
+  buttons: [
+    { text: 'Ver Datasets', href: '#catalogo', variant: 'primary' },
+    { text: 'Descarga Muestra Gratis', href: '/muestras/muestra-gratuita.xlsx', variant: 'outline', download: true },
+  ],
 }
 
 /**
