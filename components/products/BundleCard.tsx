@@ -57,8 +57,8 @@ export default function BundleCard({
       <div className="mb-5 flex-grow">
         <p className="text-sm font-semibold text-slate-700 mb-2">Incluye:</p>
         <ul className="space-y-1.5">
-          {included_datasets.map((dataset, index) => (
-            <li key={index} className="flex items-center gap-2 text-sm text-slate-600">
+          {included_datasets.map((dataset) => (
+            <li key={dataset} className="flex items-center gap-2 text-sm text-slate-600">
               <Check className="w-4 h-4 text-emerald-500 flex-shrink-0" />
               <span className="line-clamp-1">{dataset}</span>
             </li>

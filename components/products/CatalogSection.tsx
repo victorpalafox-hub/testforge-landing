@@ -111,8 +111,11 @@ export function CatalogSection({ datasets, error }: CatalogSectionProps) {
         discount_percentage: bundle.discount_percentage,
         ideal_for: bundle.ideal_for,
         included_datasets: bundle.bundle_datasets
-          .filter((bd) => bd.datasets !== null)
-          .map((bd) => bd.datasets!.title),
+          .filter(
+            (bd): bd is typeof bd & { datasets: NonNullable<typeof bd.datasets> } =>
+              bd.datasets !== null
+          )
+          .map((bd) => bd.datasets.title),
       }));
 
       setBundles(transformedBundles);

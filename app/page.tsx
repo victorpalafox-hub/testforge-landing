@@ -59,9 +59,9 @@ export default async function Home() {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                {CONTENT.hero.buttons.map((button, index) => (
+                {CONTENT.hero.buttons.map((button) => (
                   <a
-                    key={index}
+                    key={button.id}
                     href={button.href}
                     download={button.download ? true : undefined}
                     className={`w-full sm:w-auto px-8 py-4 font-semibold rounded-xl transition-all duration-300 inline-flex items-center justify-center gap-2 ${
@@ -86,9 +86,9 @@ export default async function Home() {
             ======================================== */}
         <section className="max-w-7xl mx-auto px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {CONTENT.benefits.map((benefit, index) => (
+            {CONTENT.benefits.map((benefit) => (
               <div
-                key={index}
+                key={benefit.id}
                 className="group relative bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-100 hover:border-slate-200 hover:shadow-xl transition-all duration-300"
               >
                 {/* Icon container */}

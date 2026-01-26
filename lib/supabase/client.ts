@@ -1,13 +1,22 @@
 import { createClient } from '@supabase/supabase-js';
-// Importa la función para crear el cliente de Supabase
+import { env } from '@/lib/config/env.config';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-// Lee la URL desde tu archivo .env.local
-// El "!" le dice a TypeScript: "confía en mí, esta variable existe"
-
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-// Lee la clave pública desde .env.local
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-// Crea y exporta el cliente de Supabase
-// Ahora puedes importarlo en cualquier archivo con: import { supabase } from '@/lib/supabase/client'
+/**
+ * Cliente de Supabase para operaciones del lado del cliente.
+ *
+ * Usa la clave ANON (pública) que es segura para exponer al browser.
+ * Las variables de entorno ya están validadas por env.config.ts.
+ *
+ * USO:
+ * ```typescript
+ * import { supabase } from '@/lib/supabase/client';
+ *
+ * const { data, error } = await supabase
+ *   .from('datasets')
+ *   .select('*');
+ * ```
+ */
+export const supabase = createClient(
+  env.NEXT_PUBLIC_SUPABASE_URL,
+  env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);

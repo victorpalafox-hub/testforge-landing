@@ -10,6 +10,8 @@
 // ============================================
 
 export interface HeroCTA {
+  /** Identificador único */
+  id: string;
   /** Texto del botón */
   text: string;
   /** URL del enlace */
@@ -34,6 +36,8 @@ export interface HeroContent {
 }
 
 export interface Benefit {
+  /** Identificador único */
+  id: string;
   /** Nombre del ícono (Heroicons) */
   icon: 'database' | 'shield' | 'lightning' | 'chart' | 'download' | 'support' | 'lock' | 'refresh';
   /** Título corto del beneficio */
@@ -202,8 +206,9 @@ export const HERO: HeroContent = {
   ctaText: 'Explorar Datasets',
   ctaSecondaryText: 'Conocer más',
   buttons: [
-    { text: 'Ver Datasets', href: '#catalogo', variant: 'primary' },
+    { id: 'cta-catalogo', text: 'Ver Datasets', href: '#catalogo', variant: 'primary' },
     {
+      id: 'cta-muestra',
       text: 'Descarga Muestra Gratis',
       href: '/muestras/muestra-gratuita.xlsx',
       variant: 'outline',
@@ -222,24 +227,28 @@ export const HERO: HeroContent = {
  */
 export const BENEFITS: Benefit[] = [
   {
+    id: 'benefit-verified',
     icon: 'database',
     title: 'Datos Verificados',
     description:
       'Cada dataset pasa por un riguroso proceso de validación para garantizar precisión y consistencia en la información.',
   },
   {
+    id: 'benefit-secure',
     icon: 'shield',
     title: 'Compra Segura',
     description:
       'Transacciones protegidas con encriptación de grado bancario. Tu información financiera siempre está segura.',
   },
   {
+    id: 'benefit-instant',
     icon: 'lightning',
     title: 'Descarga Inmediata',
     description:
       'Accede a tus datasets al instante después de la compra. Sin tiempos de espera, sin complicaciones.',
   },
   {
+    id: 'benefit-updates',
     icon: 'refresh',
     title: 'Actualizaciones Incluidas',
     description:
