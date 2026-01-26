@@ -1,59 +1,99 @@
 'use client';
 
+import * as React from 'react';
 import Link from 'next/link';
-import { Download } from 'lucide-react';
-import { BRAND } from '@/lib/config/brand';
-import { CONTENT } from '@/lib/config/content';
+import { Button } from '@/components/ui';
+import { cn } from '@/lib/utils';
+import { brandConfig } from '@/lib/config';
 
-export default function Header() {
-  const handleNavClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    href: string,
-    isDownload?: boolean
-  ) => {
-    // No interferir con descargas
-    if (isDownload) return;
+export function Header() {
+  const [isScrolled, setIsScrolled] = React.useState(false);
 
-    // Solo manejar anchors (enlaces internos con #)
-    if (href.startsWith('#')) {
-      e.preventDefault();
-      const targetId = href.slice(1);
-      const element = document.getElementById(targetId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <header className={BRAND.styles.header.container}>
-      <div className={BRAND.styles.header.inner}>
-        {/* Logo / Brand Name */}
-        <Link href="/" className={BRAND.styles.header.logo}>
-          {CONTENT.header.brandName}
-        </Link>
-
-        {/* Navigation */}
-        <nav className={BRAND.styles.header.nav}>
-          {CONTENT.header.navigation.map((link) => (
-            <a
-              key={link.id}
-              href={link.href}
-              onClick={(e) => handleNavClick(e, link.href, link.download)}
-              download={link.download ? true : undefined}
-              className={`${link.download ? 'text-emerald-600 font-medium' : BRAND.styles.header.link} inline-flex items-center gap-1.5`}
-            >
-              {link.download && <Download className="w-4 h-4" />}
-              {link.label}
-              {link.badge && (
-                <span className="ml-1 px-1.5 py-0.5 text-[10px] font-bold bg-emerald-500 text-white rounded-full">
-                  {link.badge}
-                </span>
-              )}
-            </a>
-          ))}
-        </nav>
+    <header className="fixed top-0 left-0 right-0 z-50">
+      {/* Badge Marquee - Urgencia */}
+      <div className="bg-urgency-badge overflow-hidden">
+        <div className="animate-marquee whitespace-nowrap py-2 text-center">
+          <span className="inline-block px-4 text-xs font-bold text-background-primary uppercase tracking-wider">
+            ⚡ OFERTA LIMITADA: Solo quedan 12 spots disponibles este mes
+          </span>
+          <span className="inline-block px-4 text-xs font-bold text-background-primary uppercase tracking-wider">
+            ⚡ OFERTA LIMITADA: Solo quedan 12 spots disponibles este mes
+          </span>
+          <span className="inline-block px-4 text-xs font-bold text-background-primary uppercase tracking-wider">
+            ⚡ OFERTA LIMITADA: Solo quedan 12 spots disponibles este mes
+          </span>
+        </div>
       </div>
+
+      {/* Main Navigation */}
+      <nav
+        className={cn(
+          'transition-all duration-300',
+          isScrolled
+            ? 'bg-background-primary/95 backdrop-blur-xl shadow-xl border-b border-border-default'
+            : 'bg-transparent'
+        )}
+      >
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2 group">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-primary blur-lg opacity-50 group-hover:opacity-100 transition-opacity" />
+                <span className="relative text-2xl font-bold bg-gradient-to-r from-brand-cyan-400 to-brand-blue-500 bg-clip-text text-transparent">
+                  {brandConfig.site.name}
+                </span>
+              </div>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-8">
+              <Link
+                href="#datasets"
+                className="text-text-secondary hover:text-brand-cyan-500 transition-colors text-sm font-medium"
+              >
+                Datasets
+              </Link>
+              <Link
+                href="#generator"
+                className="text-text-secondary hover:text-brand-cyan-500 transition-colors text-sm font-medium"
+              >
+                Generador AI
+              </Link>
+              <Link
+                href="#pricing"
+                className="text-text-secondary hover:text-brand-cyan-500 transition-colors text-sm font-medium"
+              >
+                Precios
+              </Link>
+              <Link
+                href="#faq"
+                className="text-text-secondary hover:text-brand-cyan-500 transition-colors text-sm font-medium"
+              >
+                FAQ
+              </Link>
+            </div>
+
+            {/* CTA Button */}
+            <div className="flex items-center gap-4">
+              <Button variant="primary" size="md">
+                Empezar Gratis
+              </Button>
+            </div>
+          </div>
+        </div>
+      </nav>
     </header>
   );
 }
+
+export default Header;

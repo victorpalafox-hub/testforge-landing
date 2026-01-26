@@ -145,120 +145,150 @@ export const brandConfig = {
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // 4. COLORES - Dark Theme Tech
+  // 4. COLORES - Cobalt Professional Theme
   // ═══════════════════════════════════════════════════════════════════════════
   /**
    * Sistema de colores completo con paletas semánticas.
-   * Basado en: Navy backgrounds (#0F172A), gradientes cyan/blue
+   * Paleta Cobalt-inspired: Royal, profesional, confiable
+   * - Primary: Cobalt blue profundo
+   * - Accent warm: Coral (humaniza CTAs)
+   * - Accent cool: Teal mint (tech/datos)
    */
   colors: {
     /** Colores de marca - paletas completas */
     brand: {
+      /** Teal mint - para datos/tech/innovación */
       cyan: {
-        50: '#ECFEFF',
-        100: '#CFFAFE',
-        200: '#A5F3FC',
-        300: '#67E8F9',
-        400: '#22D3EE',
-        500: '#00D9FF', // ← PRIMARY
-        600: '#0891B2',
-        700: '#0E7490',
-        800: '#155E75',
-        900: '#164E63',
+        50: '#F0F9FF',
+        100: '#E0F2FE',
+        200: '#BAE6FD',
+        300: '#7DD3FC',
+        400: '#38BDF8',
+        500: '#00D4AA', // ← PRIMARY (Teal mint)
+        600: '#00B894',
+        700: '#009B7D',
+        800: '#007D66',
+        900: '#006654',
       },
+      /** Cobalt/Azure - profesional y confiable */
       blue: {
         50: '#EFF6FF',
         100: '#DBEAFE',
         200: '#BFDBFE',
         300: '#93C5FD',
         400: '#60A5FA',
-        500: '#0EA5E9', // ← SECONDARY
-        600: '#2563EB',
-        700: '#1D4ED8',
-        800: '#1E40AF',
-        900: '#1E3A8A',
+        500: '#0066CC', // ← SECONDARY (Azure bright)
+        600: '#0047AB', // ← Cobalt profundo
+        700: '#003D8F',
+        800: '#003373',
+        900: '#002957',
       },
+      /** Purple - acentos y gradientes */
       purple: {
+        50: '#FAF5FF',
+        100: '#F3E8FF',
+        200: '#E9D5FF',
+        300: '#D8B4FE',
+        400: '#C084FC',
         500: '#8B5CF6',
         600: '#7C3AED',
+        700: '#6D28D9',
+        800: '#5B21B6',
+        900: '#4C1D95',
+      },
+      /** Coral - CTAs cálidos que humanizan */
+      coral: {
+        50: '#FFF5F5',
+        100: '#FFE3E3',
+        200: '#FFC9C9',
+        300: '#FFA8A8',
+        400: '#FF8787',
+        500: '#FF8C73', // ← CTA PRIMARY (Coral suavizado)
+        600: '#FF6B6B',
+        700: '#FF5252',
+        800: '#E03E3E',
+        900: '#C92A2A',
       },
     },
 
-    /** Fondos - jerarquía de superficies */
+    /** Fondos - jerarquía de superficies (Cobalt navy profundo) */
     background: {
       /** Fondo principal del sitio */
-      primary: '#0F172A',
-      /** Fondo de secciones alternadas */
-      secondary: '#1E293B',
-      /** Fondo de elementos terciarios */
-      tertiary: '#334155',
+      primary: '#0A1628',
+      /** Fondo de secciones alternadas / cards */
+      secondary: '#162234',
+      /** Fondo de elementos terciarios / hover */
+      tertiary: '#1A2A3E',
       /** Fondo de cards */
-      card: '#1E293B',
+      card: '#162234',
       /** Cards elevadas (modales, dropdowns) */
-      elevated: '#1E293B',
+      elevated: '#1A2A3E',
       /** Estado hover de elementos */
-      hover: '#334155',
+      hover: '#1A2A3E',
       /** Fondo con tinte de color primario */
-      accent: 'rgba(0, 217, 255, 0.05)',
+      accent: 'rgba(0, 71, 171, 0.08)',
     },
 
     /** Textos - jerarquía tipográfica */
     text: {
       /** Texto principal (headings, body) */
-      primary: '#FFFFFF',
+      primary: '#F8FAFC',
       /** Texto secundario (descripciones) */
-      secondary: '#94A3B8',
+      secondary: '#CBD5E1',
       /** Texto terciario (captions, labels) */
-      tertiary: '#64748B',
+      tertiary: '#94A3B8',
       /** Texto con color de acento */
-      accent: '#00D9FF',
+      accent: '#00D4AA',
       /** Texto muy tenue */
-      muted: '#475569',
+      muted: '#64748B',
     },
 
     /** Bordes */
     border: {
-      default: '#334155',
-      light: '#475569',
-      accent: '#00D9FF',
+      default: 'rgba(255, 255, 255, 0.08)',
+      subtle: 'rgba(255, 255, 255, 0.05)',
+      light: 'rgba(255, 255, 255, 0.12)',
+      accent: 'rgba(0, 71, 171, 0.3)',
     },
 
     /** Estados semánticos */
     state: {
-      success: '#10B981',
-      warning: '#F59E0B',
-      error: '#EF4444',
-      info: '#3B82F6',
+      success: '#00D4AA',
+      warning: '#FF8C73',
+      error: '#FF5252',
+      info: '#0066CC',
     },
 
-    /** Urgencia (DesignBell + Studio Nika) */
+    /** Urgencia (badge marquee) */
     urgency: {
       /** Color de badge de urgencia */
-      badge: '#FFD700',
+      badge: '#FF8C73',
       /** Texto sobre badge de urgencia */
-      text: '#1A1A1A',
+      text: '#FFFFFF',
+      /** Glow para efectos */
+      glow: 'rgba(255, 140, 115, 0.3)',
     },
 
     /** Tabla de comparación */
     comparison: {
       /** Checkmark verde */
-      check: '#10B981',
+      check: '#00D4AA',
       /** X rojo */
-      cross: '#EF4444',
+      cross: '#FF5252',
     },
 
     /** Gradientes predefinidos */
     gradients: {
-      /** Gradiente principal cyan → blue */
-      primary: 'linear-gradient(135deg, #00D9FF 0%, #0EA5E9 100%)',
-      /** Gradiente secundario purple → blue */
-      secondary: 'linear-gradient(135deg, #8B5CF6 0%, #0EA5E9 100%)',
+      /** Gradiente principal cobalt → azure → teal */
+      primary: 'linear-gradient(135deg, #0047AB 0%, #0066CC 50%, #00D4AA 100%)',
+      /** Gradiente secundario coral */
+      secondary: 'linear-gradient(135deg, #FF8C73 0%, #FF6B6B 100%)',
       /** Gradiente de fondo sutil */
-      background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
+      background: 'radial-gradient(circle at 50% 50%, rgba(0, 71, 171, 0.08) 0%, transparent 50%)',
       /** Gradiente para cards */
-      card: 'linear-gradient(135deg, #1E293B 0%, #0F172A 100%)',
-      /** Gradiente radial para hero */
-      hero: 'radial-gradient(ellipse at top, rgba(139, 92, 246, 0.15) 0%, #0F172A 50%)',
+      card: 'linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)',
+      /** Gradiente para hero headline */
+      hero: 'linear-gradient(135deg, #F8FAFC 0%, #DBEAFE 50%, #BAE6FD 100%)',
     },
   },
 
@@ -343,11 +373,12 @@ export const brandConfig = {
       md: '0 6px 12px -2px rgba(0, 0, 0, 0.3)',
       lg: '0 10px 20px -3px rgba(0, 0, 0, 0.4)',
       xl: '0 20px 40px -4px rgba(0, 0, 0, 0.5)',
-      /** Sombras con glow de color */
+      /** Sombras con glow de color (Cobalt palette) */
       glow: {
-        cyan: '0 0 20px rgba(0, 217, 255, 0.5)',
-        blue: '0 0 20px rgba(14, 165, 233, 0.5)',
+        cyan: '0 0 20px rgba(0, 212, 170, 0.5)',
+        blue: '0 0 20px rgba(0, 71, 171, 0.5)',
         purple: '0 0 20px rgba(139, 92, 246, 0.5)',
+        coral: '0 0 40px rgba(255, 140, 115, 0.4)',
       },
     },
 
@@ -623,18 +654,25 @@ export type PatternsConfig = typeof brandConfig.patterns;
 // ═══════════════════════════════════════════════════════════════════════════
 
 /**
- * Obtiene el color primario de la marca
+ * Obtiene el color primario de la marca (Teal mint)
  * @example
- * const cyan = getPrimaryColor(); // '#00D9FF'
+ * const teal = getPrimaryColor(); // '#00D4AA'
  */
 export const getPrimaryColor = () => brandConfig.colors.brand.cyan[500];
 
 /**
- * Obtiene el color secundario de la marca
+ * Obtiene el color secundario de la marca (Azure/Cobalt)
  * @example
- * const blue = getSecondaryColor(); // '#0EA5E9'
+ * const azure = getSecondaryColor(); // '#0066CC'
  */
 export const getSecondaryColor = () => brandConfig.colors.brand.blue[500];
+
+/**
+ * Obtiene el color de CTA (Coral)
+ * @example
+ * const coral = getCtaColor(); // '#FF8C73'
+ */
+export const getCtaColor = () => brandConfig.colors.brand.coral[500];
 
 /**
  * Formatea un precio con la moneda configurada

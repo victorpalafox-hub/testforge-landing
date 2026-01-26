@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TestForge - Cobalt Royal Premium</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #0A1628;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: #F8FAFC;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       1. GRADIENT MESH BACKGROUND (SUTIL)
+       ════════════════════════════════════════════════════════════════ */
+    .mesh-container {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .mesh-orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .orb-1 {
+      width: 600px;
+      height: 600px;
+      background: #0047AB;
+      filter: blur(200px);
+      opacity: 0.08;
+      top: -15%;
+      left: -10%;
+      animation: float-subtle-1 18s ease-in-out infinite;
+    }
+
+    .orb-2 {
+      width: 550px;
+      height: 550px;
+      background: #0066CC;
+      filter: blur(180px);
+      opacity: 0.10;
+      top: 5%;
+      right: -8%;
+      animation: float-subtle-2 20s ease-in-out infinite;
+    }
+
+    .orb-3 {
+      width: 650px;
+      height: 650px;
+      background: #00D4AA;
+      filter: blur(220px);
+      opacity: 0.07;
+      bottom: -10%;
+      left: 5%;
+      animation: float-subtle-3 22s ease-in-out infinite;
+    }
+
+    .orb-4 {
+      width: 500px;
+      height: 500px;
+      background: #FF6B6B;
+      filter: blur(160px);
+      opacity: 0.06;
+      top: 50%;
+      right: 15%;
+      animation: float-subtle-4 16s ease-in-out infinite;
+    }
+
+    @keyframes float-subtle-1 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(20px, -30px); }
+    }
+
+    @keyframes float-subtle-2 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-25px, 25px); }
+    }
+
+    @keyframes float-subtle-3 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(30px, -20px); }
+    }
+
+    @keyframes float-subtle-4 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-20px, 30px); }
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       2. GRID PATTERN MINIMAL
+       ════════════════════════════════════════════════════════════════ */
+    .grid-pattern {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at center, black 0%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 0%, transparent 75%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       3. BADGE TOP (CLEAN)
+       ════════════════════════════════════════════════════════════════ */
+    .badge-clean {
+      background: #162234;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 10px 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      transition: all 400ms ease;
+      will-change: transform, background, border-color;
+    }
+
+    .badge-clean:hover {
+      background: #1A2A3E;
+      border-color: rgba(0, 71, 171, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .badge-text {
+      color: #94A3B8;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .badge-icon {
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       4. HEADLINE MASIVO (85px)
+       ════════════════════════════════════════════════════════════════ */
+    .headline-massive {
+      font-size: 85px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      max-width: 950px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #F8FAFC 0%, #DBEAFE 50%, #CFFAFE 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 40px rgba(0, 71, 171, 0.3);
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       5. DESCRIPTION
+       ════════════════════════════════════════════════════════════════ */
+    .description {
+      font-size: 20px;
+      color: #94A3B8;
+      line-height: 1.65;
+      max-width: 600px;
+      font-weight: 400;
+      margin-top: 24px;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       6. CTA BUTTONS
+       ════════════════════════════════════════════════════════════════ */
+    .cta-container {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .cta-primary {
+      background: #FF6B6B;
+      color: white;
+      font-weight: 600;
+      font-size: 17px;
+      padding: 18px 40px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      box-shadow:
+        0 0 40px rgba(255, 107, 107, 0.4),
+        0 8px 24px rgba(0, 0, 0, 0.25);
+      transition: all 400ms ease;
+      will-change: transform, box-shadow, background;
+    }
+
+    .cta-primary:hover {
+      background: #FF5252;
+      transform: scale(1.02) translateY(-2px);
+      box-shadow:
+        0 0 60px rgba(255, 107, 107, 0.6),
+        0 12px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .cta-arrow {
+      display: inline-block;
+      margin-left: 8px;
+      transition: transform 400ms ease;
+    }
+
+    .cta-primary:hover .cta-arrow {
+      transform: translateX(3px);
+    }
+
+    .cta-secondary {
+      background: transparent;
+      color: #F8FAFC;
+      font-weight: 500;
+      font-size: 17px;
+      padding: 16px 40px;
+      border-radius: 10px;
+      border: 2px solid rgba(0, 71, 171, 0.3);
+      cursor: pointer;
+      transition: all 400ms ease;
+      will-change: transform, background, border-color;
+    }
+
+    .cta-secondary:hover {
+      background: rgba(0, 71, 171, 0.1);
+      border-color: rgba(0, 102, 204, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       7. STATS CARDS (SOLID + GLASS)
+       ════════════════════════════════════════════════════════════════ */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 750px;
+      width: 100%;
+      margin-top: 64px;
+    }
+
+    .stats-card {
+      background: #162234;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 28px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform, box-shadow, border-color, background;
+      cursor: pointer;
+    }
+
+    .stats-card:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 12px 40px rgba(0, 71, 171, 0.15);
+      border-color: rgba(0, 71, 171, 0.2);
+      background: #1A2A3E;
+    }
+
+    .stats-icon {
+      font-size: 44px;
+      margin-bottom: 12px;
+      display: inline-block;
+      transition: transform 400ms ease;
+    }
+
+    .stats-card:hover .stats-icon {
+      transform: scale(1.08);
+    }
+
+    .stats-number {
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    /* Gradientes diferentes por card */
+    .stats-card:nth-child(1) .stats-number {
+      background: linear-gradient(135deg, #0066CC 0%, #00D4AA 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .stats-card:nth-child(2) .stats-number {
+      background: linear-gradient(135deg, #FF6B6B 0%, #FF8C42 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .stats-card:nth-child(3) .stats-number {
+      background: linear-gradient(135deg, #00D4AA 0%, #14B8A6 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .stats-card:nth-child(4) .stats-number {
+      background: linear-gradient(135deg, #8B5CF6 0%, #0066CC 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .stats-label {
+      font-size: 15px;
+      color: #94A3B8;
+      font-weight: 500;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       FOOTER SUBTLE
+       ════════════════════════════════════════════════════════════════ */
+    .footer-subtle {
+      margin-top: 80px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .footer-text {
+      color: #64748B;
+      font-size: 14px;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       RESPONSIVE
+       ════════════════════════════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .headline-massive {
+        font-size: 64px;
+      }
+
+      .stats-number {
+        font-size: 48px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .headline-massive {
+        font-size: 48px;
+        letter-spacing: -0.02em;
+      }
+
+      .description {
+        font-size: 18px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+        margin-top: 48px;
+      }
+
+      .stats-number {
+        font-size: 44px;
+      }
+
+      .cta-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .cta-primary,
+      .cta-secondary {
+        padding: 16px 36px;
+        font-size: 16px;
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Gradient Mesh Background (Sutil) -->
+  <div class="mesh-container">
+    <div class="mesh-orb orb-1"></div>
+    <div class="mesh-orb orb-2"></div>
+    <div class="mesh-orb orb-3"></div>
+    <div class="mesh-orb orb-4"></div>
+  </div>
+
+  <!-- Grid Pattern Minimal -->
+  <div class="grid-pattern"></div>
+
+  <!-- Main Content -->
+  <main class="relative z-10 min-h-screen flex items-center justify-center px-8 py-20">
+    <div class="max-w-5xl mx-auto text-center">
+
+      <!-- 3. Badge Top (Clean) -->
+      <div class="flex justify-center mb-12">
+        <div class="badge-clean inline-flex items-center cursor-pointer">
+          <span class="badge-icon">✨</span>
+          <span class="badge-text">500+ pruebas generadas con IA</span>
+        </div>
+      </div>
+
+      <!-- 4. Headline Massive -->
+      <h1 class="headline-massive">
+        Datasets Premium<br>para QA en México
+      </h1>
+
+      <!-- 5. Description -->
+      <p class="description mx-auto">
+        Datos reales de empresas mexicanas. Listos para usar en tus pruebas automatizadas.
+        Genera casos de prueba con IA en segundos.
+      </p>
+
+      <!-- 6. CTA Buttons -->
+      <div class="cta-container">
+        <button class="cta-primary">
+          Empezar Gratis
+          <span class="cta-arrow">→</span>
+        </button>
+        <button class="cta-secondary">
+          Ver Datasets
+        </button>
+      </div>
+
+      <!-- 7. Stats Cards -->
+      <div class="flex justify-center">
+        <div class="stats-grid">
+          <div class="stats-card">
+            <div class="stats-icon">💾</div>
+            <div class="stats-number">1,000+</div>
+            <div class="stats-label">Datasets Premium</div>
+          </div>
+
+          <div class="stats-card">
+            <div class="stats-icon">📊</div>
+            <div class="stats-number">500+</div>
+            <div class="stats-label">Tests Generados</div>
+          </div>
+
+          <div class="stats-card">
+            <div class="stats-icon">👥</div>
+            <div class="stats-number">40+</div>
+            <div class="stats-label">Equipos QA</div>
+          </div>
+
+          <div class="stats-card">
+            <div class="stats-icon">⚡</div>
+            <div class="stats-number">99.9%</div>
+            <div class="stats-label">Precisión</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Subtle -->
+      <div class="footer-subtle">
+        <p class="footer-text">TestForge — Testing Tools for Modern QA Teams</p>
+      </div>
+
+    </div>
+  </main>
+</body>
+</html>
