@@ -176,7 +176,7 @@ export interface ContentConfig {
  * 2. Ajusta `navigation` para los enlaces de navegación
  */
 export const HEADER: HeaderContent = {
-  brandName: 'Datasets MX',
+  brandName: 'TestForge',
   navigation: [
     { label: 'Inicio', href: '/', id: 'inicio' },
     { label: 'Catálogo', href: '#catalogo', id: 'catalogo' },
@@ -345,9 +345,9 @@ export const FOOTER: FooterContent = {
   },
   contact: {
     title: 'Contacto',
-    email: 'hola@datasetsmx.com',
+    email: 'hola@testforge.mx',
   },
-  copyright: `© ${new Date().getFullYear()} Datasets MX. Todos los precios en MXN. IVA incluido.`,
+  copyright: `© ${new Date().getFullYear()} TestForge. Todos los precios en MXN. IVA incluido.`,
 };
 
 // ============================================

@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { Download } from 'lucide-react';
 import { Container } from '@/components/layout';
 import { brandConfig } from '@/lib/config';
 
@@ -76,28 +77,49 @@ export function Hero() {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            {/* Primary CTA - Coral with enhanced glow */}
-            <button
-              className="min-w-[200px] px-8 py-4 rounded-xl font-semibold text-white bg-[#FF8C73] hover:bg-[#FF6B6B] transition-all duration-300 hover:scale-105 will-change-transform"
-              style={{
-                boxShadow: '0 0 50px rgba(255,140,115,0.5), 0 10px 30px rgba(0,0,0,0.3)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 0 70px rgba(255,140,115,0.7), 0 15px 40px rgba(0,0,0,0.4)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 0 50px rgba(255,140,115,0.5), 0 10px 30px rgba(0,0,0,0.3)';
-              }}
-            >
-              Empezar Gratis
-              <span className="ml-2">→</span>
-            </button>
+          <div className="flex flex-col items-center gap-6 pt-4">
+            {/* Primary & Secondary CTAs */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              {/* Primary CTA - Coral with enhanced glow */}
+              <button
+                className="min-w-[200px] px-8 py-4 rounded-xl font-semibold text-white bg-[#FF8C73] hover:bg-[#FF6B6B] transition-all duration-300 hover:scale-105 will-change-transform"
+                style={{
+                  boxShadow: '0 0 50px rgba(255,140,115,0.5), 0 10px 30px rgba(0,0,0,0.3)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 70px rgba(255,140,115,0.7), 0 15px 40px rgba(0,0,0,0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 50px rgba(255,140,115,0.5), 0 10px 30px rgba(0,0,0,0.3)';
+                }}
+              >
+                Empezar Gratis
+                <span className="ml-2">→</span>
+              </button>
 
-            {/* Secondary CTA - Blue outline */}
-            <button className="min-w-[200px] px-8 py-4 rounded-xl font-semibold text-slate-200 bg-transparent border-2 border-blue-600/30 hover:border-cyan-500/50 hover:bg-blue-600/10 transition-all duration-300">
-              Ver Datasets
-            </button>
+              {/* Secondary CTA - Blue outline */}
+              <button className="min-w-[200px] px-8 py-4 rounded-xl font-semibold text-slate-200 bg-transparent border-2 border-blue-600/30 hover:border-cyan-500/50 hover:bg-blue-600/10 transition-all duration-300">
+                Ver Datasets
+              </button>
+            </div>
+
+            {/* Separator */}
+            <span className="text-slate-500 text-sm">o</span>
+
+            {/* Download CTA - Ghost */}
+            <a
+              href="/muestras/muestra-gratuita.xlsx"
+              download
+              className="group flex flex-col items-center gap-2"
+            >
+              <button className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium text-slate-300 bg-transparent hover:bg-white/5 hover:text-cyan-500 transition-all duration-300">
+                <Download className="w-4 h-4" />
+                Descargar Muestra Gratis
+              </button>
+              <span className="text-slate-500 text-xs group-hover:text-slate-400 transition-colors">
+                Excel con 7 hojas de datos demo • Sin registro
+              </span>
+            </a>
           </div>
 
           {/* Stats Cards - Cobalt glassmorphism with premium hover */}

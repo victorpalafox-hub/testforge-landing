@@ -173,7 +173,7 @@ const transaccionesData = [
 
 // README
 const readmeData = [
-  { Contenido: 'MUESTRA GRATUITA - DATASETS MX' },
+  { Contenido: 'MUESTRA GRATUITA - TESTFORGE' },
   { Contenido: '' },
   { Contenido: 'Incluye 3 registros de ejemplo de cada tipo de dato.' },
   { Contenido: '' },
@@ -187,9 +187,9 @@ const readmeData = [
   { Contenido: '✗ NO usar en producción' },
   { Contenido: '' },
   { Contenido: 'Descarga datasets completos en:' },
-  { Contenido: 'https://datasetsmx.com' },
+  { Contenido: 'https://testforge.mx' },
   { Contenido: '' },
-  { Contenido: 'Contacto: hola@datasetsmx.com' },
+  { Contenido: 'Contacto: hola@testforge.mx' },
 ];
 
 // AVISO LEGAL
@@ -218,9 +218,9 @@ const avisoLegalData = [
   { Contenido: '' },
   { Contenido: '5. RESPONSABILIDAD' },
   { Contenido: 'El uso indebido es responsabilidad exclusiva del usuario.' },
-  { Contenido: 'Datasets MX no se responsabiliza por mal uso.' },
+  { Contenido: 'TestForge no se responsabiliza por mal uso.' },
   { Contenido: '' },
-  { Contenido: '© 2026 Datasets MX. Todos los derechos reservados.' },
+  { Contenido: '© 2026 TestForge. Todos los derechos reservados.' },
 ];
 
 // ============================================
