@@ -3,18 +3,23 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const badgeVariants = cva(
-  // Base styles
-  'inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold transition-all duration-300',
+  // Base styles - Cobalt professional
+  'inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-all duration-300',
   {
     variants: {
       variant: {
-        urgency:
-          'bg-urgency-badge text-background-primary shadow-md animate-pulse',
-        new: 'bg-gradient-secondary text-white shadow-glow-purple',
-        'social-proof':
-          'bg-background-secondary text-text-primary border border-brand-cyan-500/30',
+        // Default: Slate discreto
         default:
-          'bg-background-secondary text-text-secondary border border-border-default',
+          'bg-slate-800/50 border border-white/10 text-slate-300 backdrop-blur-sm',
+        // Urgency: Coral suave (para marquee)
+        urgency:
+          'bg-brand-coral-500/10 border border-brand-coral-500/30 text-brand-coral-400 shadow-sm',
+        // New: Profesional slate (para social proof)
+        new:
+          'bg-slate-900/80 border border-white/10 text-slate-400 backdrop-blur-md',
+        // Social-proof: Blue sutil
+        'social-proof':
+          'bg-brand-blue-600/10 border border-brand-blue-500/20 text-blue-300',
       },
     },
     defaultVariants: {
