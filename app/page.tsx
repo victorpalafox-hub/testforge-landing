@@ -28,20 +28,20 @@ export default async function Home() {
             {CONTENT.benefits.map((benefit) => (
               <div
                 key={benefit.id}
-                className="group relative bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-cyan-500/50 hover:bg-white/10 transition-all duration-300"
+                className="group relative bg-slate-900/60 backdrop-blur-sm rounded-2xl p-6 border border-white/10 shadow-lg hover:border-blue-600/30 hover:bg-slate-900/80 transition-all duration-300"
               >
                 {/* Icon container */}
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 bg-gradient-to-br from-cyan-500/20 to-purple-500/20">
-                  <BenefitIcon icon={benefit.icon} className="w-6 h-6 text-cyan-400" />
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 bg-gradient-to-br from-blue-600/20 via-cyan-500/20 to-blue-500/20">
+                  <BenefitIcon icon={benefit.icon} className="w-6 h-6 text-cyan-500" />
                 </div>
 
                 {/* Title */}
-                <h3 className="text-lg font-bold tracking-tight text-white mb-2">
+                <h3 className="text-lg font-semibold tracking-tight text-white mb-2">
                   {benefit.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-gray-400 text-sm leading-relaxed">{benefit.description}</p>
+                <p className="text-slate-400 text-sm leading-relaxed">{benefit.description}</p>
               </div>
             ))}
           </div>

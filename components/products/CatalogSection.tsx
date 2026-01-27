@@ -140,12 +140,12 @@ export function CatalogSection({ datasets, error }: CatalogSectionProps) {
   // Renderizar estado vacío
   const renderEmptyState = (message: string, submessage: string) => (
     <div className="text-center py-12">
-      <div className="backdrop-blur-sm bg-white/90 border border-slate-200/50 rounded-2xl p-10 max-w-md mx-auto shadow-xl">
-        <div className="w-16 h-16 bg-gradient-to-br from-slate-100 to-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+      <div className="backdrop-blur-sm bg-slate-900/60 border border-white/10 rounded-2xl p-10 max-w-md mx-auto shadow-xl">
+        <div className="w-16 h-16 bg-gradient-to-br from-blue-600/20 to-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
           <Package className="w-8 h-8 text-slate-400" />
         </div>
-        <p className="text-slate-700 text-lg font-medium">{message}</p>
-        <p className="text-slate-500 text-sm mt-2">{submessage}</p>
+        <p className="text-white text-lg font-medium">{message}</p>
+        <p className="text-slate-400 text-sm mt-2">{submessage}</p>
       </div>
     </div>
   );
@@ -153,8 +153,8 @@ export function CatalogSection({ datasets, error }: CatalogSectionProps) {
   // Renderizar estado de error
   const renderErrorState = (message: string) => (
     <div className="text-center py-12">
-      <div className="backdrop-blur-sm bg-red-50/90 border border-red-200 rounded-2xl p-8 max-w-md mx-auto shadow-xl">
-        <p className="text-red-600 font-medium">{message}</p>
+      <div className="backdrop-blur-sm bg-red-500/10 border border-red-500/30 rounded-2xl p-8 max-w-md mx-auto shadow-xl">
+        <p className="text-red-400 font-medium">{message}</p>
       </div>
     </div>
   );
@@ -162,11 +162,11 @@ export function CatalogSection({ datasets, error }: CatalogSectionProps) {
   // Renderizar estado de carga
   const renderLoadingState = () => (
     <div className="text-center py-16">
-      <div className="backdrop-blur-sm bg-white/90 border border-slate-200/50 rounded-2xl p-12 max-w-md mx-auto shadow-xl">
-        <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
-          <Package className="w-8 h-8 text-blue-500" />
+      <div className="backdrop-blur-sm bg-slate-900/60 border border-white/10 rounded-2xl p-12 max-w-md mx-auto shadow-xl">
+        <div className="w-16 h-16 bg-gradient-to-br from-blue-600/20 to-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
+          <Package className="w-8 h-8 text-cyan-500" />
         </div>
-        <p className="text-slate-600 font-medium">{CONTENT.catalog.loadingBundles}</p>
+        <p className="text-slate-300 font-medium">{CONTENT.catalog.loadingBundles}</p>
       </div>
     </div>
   );
@@ -175,10 +175,10 @@ export function CatalogSection({ datasets, error }: CatalogSectionProps) {
     <section id="catalogo" className="max-w-7xl mx-auto px-8 pb-24">
       {/* Section header */}
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-4">
+        <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-4">
           {title}
         </h2>
-        <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-8">{subtitle}</p>
+        <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-8">{subtitle}</p>
 
         {/* Tabs */}
         <ProductTabs onTabChange={handleTabChange} defaultTab="individual" />

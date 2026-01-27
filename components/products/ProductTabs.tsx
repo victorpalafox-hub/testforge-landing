@@ -45,7 +45,7 @@ export function ProductTabs({ onTabChange, defaultTab = 'individual' }: ProductT
   ];
 
   return (
-    <div className={BRAND.styles.tab.container}>
+    <div className="inline-flex items-center gap-2 p-1 bg-slate-900/60 backdrop-blur-sm rounded-xl border border-white/10">
       {tabs.map((tab) => (
         <button
           key={tab.key}
@@ -54,7 +54,9 @@ export function ProductTabs({ onTabChange, defaultTab = 'individual' }: ProductT
           className={`
             px-6 py-2.5 rounded-lg font-medium text-sm
             transition-all duration-300 ease-out
-            ${activeTab === tab.key ? BRAND.styles.tab.active : BRAND.styles.tab.inactive}
+            ${activeTab === tab.key
+              ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/25'
+              : 'bg-transparent text-slate-400 hover:bg-white/5 hover:text-slate-300'}
           `}
         >
           {tab.label}

@@ -24,20 +24,20 @@ export default function DatasetCard({
   };
 
   return (
-    <div className="group relative backdrop-blur-sm bg-white/90 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col border border-white/20">
+    <div className="group relative backdrop-blur-sm bg-slate-900/60 rounded-2xl p-6 shadow-lg hover:shadow-[0_20px_50px_rgba(0,71,171,0.2)] transition-all duration-500 hover:-translate-y-1 flex flex-col border border-white/10 hover:border-blue-600/30">
       {/* Gradient border effect */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/10 via-transparent to-emerald-500/10 pointer-events-none" />
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-600/10 via-transparent to-cyan-500/10 pointer-events-none" />
 
-      {/* Badge de categoría con gradiente */}
-      <span className="absolute top-4 right-4 px-4 py-1.5 text-xs font-semibold bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-full shadow-lg shadow-blue-500/25">
+      {/* Badge de categoría */}
+      <span className="absolute top-4 right-4 px-3 py-1 text-xs font-semibold bg-blue-600 text-white rounded-full shadow-md">
         {category}
       </span>
 
       {/* Título */}
-      <h3 className="text-xl font-bold tracking-tight text-slate-900 pr-24 mb-3">{title}</h3>
+      <h3 className="text-xl font-semibold tracking-tight text-white pr-24 mb-3">{title}</h3>
 
       {/* Descripción */}
-      <p className="text-slate-600 text-sm leading-relaxed mb-5 line-clamp-2 flex-grow">
+      <p className="text-slate-400 text-sm leading-relaxed mb-5 line-clamp-2 flex-grow">
         {description}
       </p>
 
@@ -56,16 +56,16 @@ export default function DatasetCard({
 
       {/* Precio prominente */}
       <div className="mb-5">
-        <p className="text-4xl font-bold tracking-tight bg-gradient-to-r from-emerald-600 to-emerald-500 bg-clip-text text-transparent">
+        <p className="text-3xl font-bold tracking-tight text-cyan-500">
           {formatPrice(price_mxn)}
-          <span className="text-lg font-medium text-slate-400 ml-2">MXN</span>
+          <span className="text-lg font-medium text-slate-500 ml-2">MXN</span>
         </p>
       </div>
 
-      {/* Botón de compra con gradiente */}
+      {/* Botón de compra - Coral */}
       <button
         type="button"
-        className="w-full py-3 px-6 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:-translate-y-0.5"
+        className="w-full py-3 px-6 bg-[#FF8C73] hover:bg-[#FF6B6B] text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-[0_0_40px_rgba(255,140,115,0.4)] hover:-translate-y-0.5"
       >
         Comprar ahora
       </button>
