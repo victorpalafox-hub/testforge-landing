@@ -1,396 +1,300 @@
-# CONTEXTO DEL PROYECTO TESTFORGE
+# CLAUDE.md
 
-## Identidad del Proyecto
-TestForge es una plataforma SaaS integral que combina:
-1. **Marketplace de Datasets Mexicanos**: RFC, CURP, direcciones, perfiles de usuario, transacciones
-2. **Generador de Pruebas con IA**: Convierte descripciones en lenguaje natural a código automatizado (Cypress/Selenium)
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-**Stack Técnico:**
-- Frontend: Next.js 14 + Tailwind CSS + class-variance-authority
-- Backend: Supabase (base de datos)
-- Pagos: Stripe (credenciales de producción existentes)
-- IA: Claude API (para generación de tests)
-- Fuentes: Inter + JetBrains Mono (Google Fonts)
-- Control de versiones: Git con Husky pre-commit hooks
+## Comandos de Desarrollo
 
-## Sistema de Diseño Actual
+```bash
+# Desarrollo
+npm run dev              # Servidor en localhost:3000
 
-### Paleta de Colores "Cobalt" (Post-rebranding)
+# Build y validación
+npm run build            # Build de producción
+npm run type-check       # Solo verificar tipos TypeScript
+npm run lint             # ESLint
+npm run lint:fix         # ESLint con auto-fix
+npm run format           # Prettier
+npm run validate         # type-check + lint + format:check (todo junto)
+
+# Auto-revisión (6 categorías de calidad)
+npm run auto-review      # Genera reporte en docs/reviews/
+```
+
+## Arquitectura del Proyecto
+
+### Stack Técnico
+- **Frontend**: Next.js 14 (App Router) + React 19 + TypeScript 5
+- **Estilos**: Tailwind CSS + class-variance-authority
+- **Backend**: Supabase (PostgreSQL + Auth)
+- **Pagos**: Stripe
+- **IA**: Claude API (generación de tests)
+- **Calidad**: Husky pre-commit hooks + ESLint + Prettier
+
+### Estructura de Configuración Centralizada
+
+```
+lib/config/
+├── brand.ts          # Identidad de marca (nombre, colores, logos)
+├── brand.config.ts   # Configuración extendida de marca
+├── content.ts        # Textos y contenidos reutilizables
+├── env.config.ts     # Variables de entorno tipadas
+└── index.ts          # Re-exports
+```
+
+**REGLA CRÍTICA**: NO hardcodear valores. Todo debe provenir de `/lib/config/`.
+
+### Sistema de Diseño "Cobalt"
 - **Azul Principal**: #0066CC (60% del uso)
 - **Acento Teal**: #00D4AA (30% del uso)
 - **CTA Coral**: #FF8C73 (10% del uso)
-- **Fondo**: Dark Navy
 - **Efectos**: Blur orbs, grid patterns, text glow
 
-### Fórmula de Diseño
-60% Studio Nika + 30% DesignBell + 10% Dark Tech Aesthetics
+## Pre-commit Hook (4 validaciones)
 
-## Arquitectura del Código
+El hook en `.husky/pre-commit` ejecuta secuencialmente:
+1. `npm run type-check` - TypeScript
+2. `npx lint-staged` - ESLint + Prettier en archivos staged
+3. `npm run build` - Verificar que compila
+4. `npm run auto-review` - 6 categorías de calidad
 
-### Estructura de Configuración Centralizada
-```
-/lib/config/
-  ├── brand.ts          # Identidad de marca centralizada
-  ├── pricing.ts        # Configuración de precios y planes
-  └── content.ts        # Textos y contenidos reutilizables
-```
+Si cualquier paso falla, el commit se bloquea.
 
-**REGLA CRÍTICA**: NO hardcodear valores. Todo debe provenir de archivos de configuración.
+## Auto-Revisión (`scripts/auto-review.js`)
 
-## Funcionalidad de Datasets (60% Completo)
+Evalúa 6 categorías con reportes en `docs/reviews/`:
+1. **Compilación y Sintaxis**: TypeScript, ESLint, dependencias
+2. **Valores Hardcodeados**: API keys, credenciales, URLs
+3. **Manejo de Errores**: async/await, try-catch
+4. **Código Duplicado**: strings repetidos, bloques similares
+5. **Best Practices**: tipos, nomenclatura, tamaño de archivos
+6. **Seguridad**: .gitignore, inyecciones, secrets
 
-### Algoritmos Implementados
-1. **RFC Generator**: Algoritmo SAT validado
-2. **CURP Generator**: Validación RENAPO
-3. **Direcciones**: Base SEPOMEX con 145K+ códigos postales
-4. **Transacciones**: Patrones realistas de e-commerce
-5. **Perfiles de Usuario**: Datos demográficamente precisos
+## Agentes Especializados
 
-## Estado del Proyecto
+El proyecto tiene configurados agentes especializados que se invocan automáticamente:
 
-### Completado
-- Rebranding visual completo (Cobalt palette)
-- Sistema de configuración centralizado
-- UI premium con efectos avanzados
-- Estructura modular de componentes
-- Datasets backend (algoritmos de generación)
+### qa-automation
+**Cuándo se activa:**
+- Después de cambios significativos en `/app/`, `/components/`, o `/lib/`
+- Cuando se agregan nuevas features o endpoints
+- Cuando se modifica lógica de negocio
+- Invocación manual: `@qa-automation test /ruta`
 
-### Pendiente
-- **Fase 2**: Conectar Stripe y Supabase (usar credenciales de producción existentes)
-- **Generador de Tests IA**: Integración completa con Claude API
-- Evaluación de MCP (Model Context Protocol) - solo después de completar datasets
-- Documentación completa del sistema
+**Qué hace:** Crea y ejecuta tests automatizados para el código modificado.
 
-## Principios de Desarrollo
+### refactoring-specialist
+**Cuándo se activa:**
+- Después de merge a main
+- Tras implementar una feature grande
+- Cuando code coverage baja del 70%
+- Invocación manual: `@refactor /ruta --dry-run`
 
-### 1. Configuración sobre Hardcoding
-Siempre crear archivos de configuración centralizados antes de implementar features.
-
-### 2. Desarrollo Incremental
-- Commits frecuentes y granulares
-- Verificación visual en cada paso
-- Documentación en tiempo real
-
-### 3. Modularidad y Escalabilidad
-- Componentes reutilizables
-- Arquitectura de microservicios
-- Patrones de diseño escalables
-
-### 4. Documentación Continua
-- Comentarios explicativos en código complejo
-- README actualizado por feature
-- Ejemplos prácticos para onboarding
-
-## Contexto del Usuario (Víctor)
-
-**Nivel de Experiencia:**
-- QA Manual en transición a QA Automation
-- Nivel: Intermedio-básico en automatización
-- Enfoque actual: Testing de microservicios
-
-**Preferencias de Comunicación:**
-- Explicaciones paso a paso
-- Ejemplos concretos y prácticos
-- Justificación de decisiones técnicas
-- Enfoque didáctico para conceptos nuevos
-
-**Áreas de Enfoque:**
-- Pruebas de microservicios
-- Frameworks de testing escalables
-- Buenas prácticas en automatización
-- Patrones de diseño reutilizables
-
-## Credenciales de Producción
-
-**IMPORTANTE**: Existen credenciales reales de Supabase y Stripe del proyecto anterior "Datasets MX" que deben recuperarse al avanzar a Fase 2.
+**Qué hace:** Limpia, optimiza y simplifica código sin romper funcionalidad. Elimina código muerto y reduce complejidad.
 
 ---
 
-## INSTRUCCIONES ESPECIALES PARA CLAUDE CODE
+## Contexto del Proyecto TestForge
+
+### Qué es
+Plataforma SaaS que combina:
+1. **Marketplace de Datasets Mexicanos**: RFC (SAT), CURP (RENAPO), direcciones (SEPOMEX), transacciones, perfiles
+2. **Generador de Pruebas con IA**: Lenguaje natural → código Cypress/Selenium
+
+### Estado Actual
+- **Fase 1 (60% completo)**: Datasets + Rebranding visual
+- **Fase 2 (pendiente)**: Conectar Stripe y Supabase
+- **Fase 3 (pendiente)**: Integración completa Claude API para generación de tests
+
+### Credenciales
+Existen credenciales de producción de Stripe y Supabase del proyecto anterior "Datasets MX" que deben recuperarse para Fase 2.
+
+## Contexto del Usuario
+
+**Víctor** - QA Manual en transición a QA Automation
+- Nivel intermedio-básico en automatización
+- Prefiere explicaciones paso a paso con justificación técnica
+- Enfoque en testing de microservicios
+
+## Workflow Obligatorio para Claude Code
 
 ### Auto-actualización de CLAUDE.md
 
-**CADA VEZ que realices cambios en el proyecto, DEBES actualizar automáticamente este archivo CLAUDE.md siguiendo este formato:**
+Después de cada cambio significativo, agregar entrada al historial:
 
 ```markdown
-## [FECHA] - [Tipo de Cambio]
+## [FECHA] - [TIPO] Descripción breve
 
-### Cambios Implementados
-- [Descripción específica del cambio 1]
-- [Descripción específica del cambio 2]
+### Cambios
+- Descripción del cambio 1
+- Descripción del cambio 2
 
-### Archivos Modificados/Creados
-- `ruta/del/archivo.ts` - [Propósito]
-- `ruta/otro/archivo.tsx` - [Propósito]
-
-### Configuración Actualizada
-- [Si se modificó algún archivo de config, especificar qué]
+### Archivos
+- `ruta/archivo.ts` - Propósito
 
 ### Decisiones Técnicas
-- [Por qué se tomó cierta decisión]
-- [Alternativas consideradas]
-
-### Próximos Pasos Sugeridos
-- [Qué sigue después de este cambio]
-
----
+- Por qué se tomó cierta decisión
 ```
 
-### Tipos de Cambio para Categorizar
-- **[FEATURE]**: Nueva funcionalidad
-- **[REFACTOR]**: Mejora de código existente
-- **[FIX]**: Corrección de bugs
-- **[CONFIG]**: Cambios en configuración
-- **[DOCS]**: Actualización de documentación
-- **[STYLE]**: Cambios visuales/CSS
-- **[SETUP]**: Configuración inicial o de herramientas
+**Tipos**: [FEATURE], [REFACTOR], [FIX], [CONFIG], [DOCS], [STYLE], [SETUP]
 
-### Reglas de Auto-documentación
-
-1. **Después de cada commit exitoso**: Agrega una entrada al CLAUDE.md
-2. **Si creas nuevos archivos de configuración**: Actualiza la sección "Arquitectura del Código"
-3. **Si completas un módulo**: Actualiza la sección "Estado del Proyecto"
-4. **Si identificas un patrón importante**: Agrégalo a "Principios de Desarrollo"
-
-### Formato de Actualización Automática
-```bash
-# Al finalizar cualquier tarea, ejecuta:
-# 1. Commit de los cambios del código
-# 2. Actualiza CLAUDE.md con el formato especificado
-# 3. Commit de CLAUDE.md con mensaje: "docs: auto-update context [tipo-de-cambio]"
-```
-
-### Ejemplo de Auto-actualización
-```markdown
-## 2025-01-27 - [FEATURE] Sistema de Pricing Dinámico
-
-### Cambios Implementados
-- Creado archivo de configuración centralizada para planes de pricing
-- Implementados 3 tiers: Básico, Pro, Enterprise
-- Sistema de features flags por plan
-
-### Archivos Modificados/Creados
-- `lib/config/pricing.ts` - Configuración centralizada de planes
-- `components/PricingCard.tsx` - Componente de tarjeta de precio
-- `app/pricing/page.tsx` - Página de pricing
-
-### Configuración Actualizada
-- Agregado pricing.ts con estructura de planes flexible
-- Definidos límites por tier (datasets, requests, soporte)
-
-### Decisiones Técnicas
-- Usamos TypeScript strict para type safety en planes
-- Estructura permite fácil A/B testing de precios
-- Sistema de features permite escalar sin modificar componentes
-
-### Próximos Pasos Sugeridos
-- Conectar pricing con Stripe Checkout
-- Implementar lógica de límites en backend
-- Crear dashboard de uso por plan
-
----
-```
-
-## WORKFLOW OBLIGATORIO
-
-Cada vez que implementes una feature o cambio:
-
-1. Planificar cambios (explicar al usuario)
-2. Implementar código
-3. Commit granular
-4. **AUTO-ACTUALIZAR CLAUDE.md** (SIN que el usuario lo pida)
-5. Commit de documentación
-6. Reportar al usuario qué se hizo
-
-**NUNCA esperes a que el usuario te pida actualizar la documentación. Es parte automática de tu workflow.**
-
----
-
-## Comandos Útiles
-```bash
-# Desarrollo
-npm run dev
-
-# Build
-npm run build
-
-# Linting
-npm run lint
-
-# Pre-commit hooks
-npm run prepare
-```
-
-## Ubicación del Proyecto
-`C:\Users\DELL\Documents\Proyectos\TestForge\testforge-landing`
-
----
-
-**Última Actualización**: 2025-01-27
-**Versión del Contexto**: 1.0
-**Estado General**: Fase 1 (Datasets + Rebranding) completada al 60%
+### Secuencia de trabajo
+1. Implementar código
+2. Commit granular
+3. Actualizar este archivo (sin que el usuario lo pida)
+4. Commit de documentación: `docs: auto-update context [TIPO]`
 
 ---
 
 # HISTORIAL DE CAMBIOS
 
-## 2025-01-27 - [SETUP] Creación de CLAUDE.md
+## 2025-01-27 - [SETUP] Configuración inicial
 
-### Cambios Implementados
-- Creado archivo CLAUDE.md con contexto completo del proyecto
-- Definida estructura de auto-documentación
-- Establecido workflow obligatorio para Claude Code
+### Cambios
+- Creado CLAUDE.md con contexto del proyecto
+- Configurado sistema de auto-revisión en pre-commit
+- Establecido workflow de auto-documentación
 
-### Archivos Modificados/Creados
-- `CLAUDE.md` - Archivo de contexto principal para Claude Code
-
-### Configuración Actualizada
-- N/A (primera creación)
-
-### Decisiones Técnicas
-- Se usa formato Markdown para máxima compatibilidad
-- Estructura modular permite actualizaciones incrementales
-- Historial de cambios al final para fácil append
-
-### Próximos Pasos Sugeridos
-- Verificar que el archivo sea leído correctamente por Claude Code
-- Comenzar con la siguiente feature del proyecto
+### Archivos
+- `CLAUDE.md` - Contexto para Claude Code
+- `scripts/auto-review.js` - Script de revisión de calidad
+- `.husky/pre-commit` - Hook con 4 validaciones
 
 ---
 
-## 2025-01-27 - [DOCS] Actualización README.md Profesional
+## 2026-01-28 - [DOCS] Reestructuración de CLAUDE.md
 
-### Cambios Implementados
-- Reemplazado README genérico de create-next-app por documentación profesional
-- Agregada descripción completa del proyecto (Marketplace + Generador IA)
-- Documentado stack tecnológico con tablas detalladas
-- Incluida guía de instalación y configuración
-- Documentada estructura del proyecto
-- Agregado sistema de diseño Cobalt con paleta de colores
-- Incluido roadmap con fases y estado actual
+### Cambios
+- Agregado prefijo estándar de Claude Code
+- Reorganizado con comandos al inicio para acceso rápido
+- Eliminada información redundante con README.md
+- Simplificado historial de cambios
+- Mantenido lo esencial: arquitectura, configuración, reglas
 
-### Archivos Modificados/Creados
-- `README.md` - Documentación profesional completa del proyecto
-
-### Configuración Actualizada
-- N/A (solo documentación)
+### Archivos
+- `CLAUDE.md` - Reestructurado completamente
 
 ### Decisiones Técnicas
-- Usamos tablas Markdown para mejor legibilidad del stack
-- Incluimos badges de tecnologías para visibilidad rápida
-- Roadmap con checkboxes para tracking visual del progreso
-- Sin emojis excesivos, enfoque profesional enterprise
-
-### Próximos Pasos Sugeridos
-- Crear archivo LICENSE si no existe
-- Crear .env.example con variables de entorno necesarias
-- Continuar con Fase 2 (Stripe + Supabase)
+- Comandos al inicio porque es lo más consultado
+- Historial condensado para reducir tamaño del archivo
+- Información detallada de datasets/features se mantiene en README.md
 
 ---
 
-## 2025-01-27 - [FEATURE] Sistema de Auto-Revisión con Hook Post-Commit
+## 2026-01-28 - [CONFIG] Agentes especializados
+
+### Cambios
+- Documentados agentes `qa-automation` y `refactoring-specialist`
+- Agregada sección con triggers y funcionalidad de cada agente
+
+### Archivos
+- `CLAUDE.md` - Nueva sección "Agentes Especializados"
+
+### Decisiones Técnicas
+- Agentes se activan proactivamente según cambios en el código
+- Permiten invocación manual con comandos específicos
+
+---
+
+## 2026-01-28 - [TESTING] Suite Completa de Pruebas Automatizadas
 
 ### Cambios Implementados
-- Creado script completo de auto-revisión que evalúa 6 categorías
-- Implementado hook post-commit que ejecuta la revisión automáticamente
-- Sistema genera reportes en Markdown en `docs/reviews/`
-- Integración con TypeScript, ESLint y análisis estático
+- Instalado y configurado Playwright para E2E tests
+- Instalado y configurado Vitest para unit/integration tests
+- Creada estructura completa de directorios `/test/`
+- Implementados 118 tests unitarios (100% pass rate)
+- Creados Page Objects siguiendo patrón POM
+- Generadas fixtures de test data (datasets, bundles, users, content)
+- Escritas 2 specs E2E completas (home, catalog)
+- Generado reporte comprehensivo Test.md
 
-### Archivos Modificados/Creados
-- `scripts/auto-review.js` - Script principal de revisión (1000+ líneas)
-- `.husky/post-commit` - Hook de Git para ejecución automática
-- `docs/reviews/.gitkeep` - Directorio para reportes
-- `package.json` - Agregado script "auto-review"
+### Archivos Creados
+- `playwright.config.ts` - Configuración de Playwright (multi-browser, mobile)
+- `vitest.config.ts` - Configuración de Vitest (jsdom, coverage)
+- `test/setup.ts` - Setup global de Vitest
+- `test/README.md` - Documentación completa de testing
+- `test/.gitignore` - Ignorar reportes generados
 
-### Categorías de Revisión
-1. **Compilación y Sintaxis**: TypeScript, ESLint, dependencias
-2. **Valores Hardcodeados**: API keys, credenciales, URLs
-3. **Manejo de Errores**: async/await, try-catch, .then/.catch
-4. **Código Duplicado**: strings repetidos, bloques similares
-5. **Best Practices**: tipos, nomenclatura, tamaño de archivos
-6. **Seguridad**: .gitignore, inyecciones, secrets en logs
+#### Tests Unitarios (5 archivos, 118 tests)
+- `test/unit/utils/cn.test.ts` - 17 tests para class name merger
+- `test/unit/config/brand-helpers.test.ts` - 29 tests para config helpers
+- `test/unit/components/Button.test.tsx` - 25 tests para Button
+- `test/unit/components/Card.test.tsx` - 27 tests para Card
+- `test/unit/components/Badge.test.tsx` - 20 tests para Badge
 
-### Uso
-```bash
-# Ejecutar manualmente
-npm run auto-review
+#### Page Objects E2E (2 archivos)
+- `test/e2e/pages/HomePage.ts` - POM para landing page
+- `test/e2e/pages/CatalogPage.ts` - POM para catálogo
 
-# Automático después de cada commit (hook post-commit)
+#### Specs E2E (2 archivos)
+- `test/e2e/specs/home.spec.ts` - Tests de Hero, Benefits, navegación
+- `test/e2e/specs/catalog.spec.ts` - Tests de tabs, datasets, filtros
+
+#### Fixtures (4 archivos)
+- `test/e2e/fixtures/datasets.ts` - Test data de datasets
+- `test/e2e/fixtures/bundles.ts` - Test data de paquetes
+- `test/e2e/fixtures/users.ts` - Test data de usuarios
+- `test/e2e/fixtures/content.ts` - Textos esperados en UI
+
+#### Reportes
+- `test/reports/Test.md` - Reporte comprehensivo con métricas y recomendaciones
+
+### Métricas Alcanzadas
+- **Total Tests**: 118 (100% pass)
+- **Test Files**: 5
+- **Coverage**: 20.96% overall, 100% en componentes testeados
+- **Duración**: 3.59s para suite completa
+- **Componentes con 100% coverage**: cn.ts, Button, Card, Badge
+
+### Configuración Actualizada
+- Agregados 10 scripts de testing a `package.json`
+  - `test`, `test:unit`, `test:integration`, `test:ui`, `test:coverage`
+  - `test:e2e`, `test:e2e:ui`, `test:e2e:headed`, `test:e2e:debug`
+  - `test:all` (ejecuta todo)
+
+### Dependencias Instaladas
+```json
+{
+  "@playwright/test": "^1.58.0",
+  "@testing-library/react": "^16.3.2",
+  "@testing-library/jest-dom": "^6.9.1",
+  "@testing-library/user-event": "^14.6.1",
+  "vitest": "^4.0.18",
+  "@vitest/coverage-v8": "^4.0.18",
+  "@vitest/ui": "^4.0.18",
+  "@vitejs/plugin-react": "^5.1.2",
+  "jsdom": "^27.4.0",
+  "happy-dom": "^20.4.0"
+}
 ```
 
 ### Decisiones Técnicas
-- Script en JavaScript puro (no TypeScript) para ejecución directa sin compilación
-- Análisis estático con regex para máxima velocidad
-- Reportes en Markdown para fácil lectura y versionado
-- Clasificación de issues: CRITICO > ALTO > MEDIO > BAJO
-- Exit code 1 si estado es CRITICO (útil para CI/CD)
+- **Playwright para E2E**: Multi-browser, mobile emulation, screenshots on failure
+- **Vitest para Unit**: Fast execution, React Testing Library integration
+- **Page Object Model**: Separation of concerns, reusabilidad, mantenibilidad
+- **Fixtures**: Zero hardcoding en specs, test data centralizado
+- **Coverage con v8**: Provider rápido y preciso
+
+### Metodología Implementada
+1. **POM (Page Object Model)**: Todos los E2E siguen este patrón
+2. **Fixtures**: NO hardcodear valores en tests
+3. **Independencia**: Tests no dependen de orden de ejecución
+4. **Idempotencia**: Tests limpian su estado
+5. **Descriptividad**: Nombres claros en español
+
+### Prioridades de Testing Establecidas
+- **P1 (Critical)**: Auth, pagos, generación datasets, IA - 100% coverage
+- **P2 (High)**: API endpoints, validaciones, navegación - 90% coverage
+- **P3 (Medium)**: UI components, errors, accesibilidad - 80% coverage
+- **P4 (Low)**: Páginas estáticas, animaciones - 60% coverage
 
 ### Próximos Pasos Sugeridos
-- Resolver issues detectados en el reporte inicial
-- Afinar detección de falsos positivos en "secrets en logs"
-- Considerar integración con GitHub Actions para CI
+1. Ejecutar E2E tests: `npm run test:e2e`
+2. Aumentar coverage a 80%+ (DatasetCard, BundleCard, CatalogSection)
+3. Agregar tests de integración con Supabase
+4. Implementar visual regression testing
+5. Integrar con CI/CD pipeline
 
----
-
-## 2025-01-27 - [FIX] Resolver Issues de Auto-Revisión
-
-### Cambios Implementados
-- Agregado try-catch a función async en `app/page.tsx`
-- Mejorada detección de falsos positivos en script de auto-review
-- Ajustados thresholds para código duplicado
-- Archivos de configuración excluidos del límite de líneas
-
-### Archivos Modificados
-- `app/page.tsx` - Agregado manejo de errores para fetch de datasets
-- `scripts/auto-review.js` - Mejoras en detección y thresholds
-
-### Issues Resueltos
-1. **Manejo de Errores**: Función async sin try-catch → CORREGIDO
-2. **Best Practices**: Archivo grande (brand.config.ts) → EXCLUIDO (es config)
-3. **Seguridad**: 9 falsos positivos de "secrets en logs" → ELIMINADOS
-4. **Código Duplicado**: 32 bloques → 6 (ignorando patrones JSX comunes)
-
-### Mejoras al Script de Auto-Review
-- `configFiles`: Lista de patrones para identificar archivos de configuración
-- `maxLinesConfigFile`: 1000 líneas para archivos de config (vs 500 normales)
-- Detección de secrets más precisa (solo variables reales, no labels)
-- Ignora patrones comunes: imports, className, JSX elements
-
-### Resultado Final
-- **Estado**: APROBADO
-- **Categorías**: 6/6 aprobadas
-- **Issues Críticos**: 0
-
-### Próximos Pasos Sugeridos
-- Continuar con Fase 2 (Stripe + Supabase)
-- Considerar integración con GitHub Actions para CI automático
-
----
-
-## 2025-01-27 - [REFACTOR] Auto-Revisión en Pre-Commit
-
-### Cambios Implementados
-- Auto-revisión movida de post-commit a **pre-commit**
-- Si detecta errores críticos, **BLOQUEA el commit**
-- Validaciones originales de Husky se mantienen intactas
-
-### Flujo de Pre-Commit (4 pasos)
-1. **TypeScript type-check** - Verificación de tipos
-2. **Lint-staged** - ESLint + Prettier en archivos staged
-3. **Build check** - Compilación del proyecto
-4. **Auto-revisión** - 6 categorías de validación
-
-### Archivos Modificados
-- `.husky/pre-commit` - Agregada auto-revisión como paso 4
-- `.husky/post-commit` - **ELIMINADO** (redundante)
-
-### Comportamiento
-- Si **cualquier paso falla** → commit bloqueado
-- El desarrollador **debe corregir** los issues antes de poder commitear
-- Garantiza que solo código validado llegue al repositorio
-
-### Próximos Pasos Sugeridos
-- Probar el flujo completo haciendo un cambio intencional con errores
-- Continuar con Fase 2 (Stripe + Supabase)
+### Reporte Completo
+Ver `/test/reports/Test.md` para métricas detalladas, cobertura por feature, y recomendaciones técnicas.
 
 ---
