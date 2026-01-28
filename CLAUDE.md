@@ -1,0 +1,259 @@
+# CONTEXTO DEL PROYECTO TESTFORGE
+
+## Identidad del Proyecto
+TestForge es una plataforma SaaS integral que combina:
+1. **Marketplace de Datasets Mexicanos**: RFC, CURP, direcciones, perfiles de usuario, transacciones
+2. **Generador de Pruebas con IA**: Convierte descripciones en lenguaje natural a código automatizado (Cypress/Selenium)
+
+**Stack Técnico:**
+- Frontend: Next.js 14 + Tailwind CSS + class-variance-authority
+- Backend: Supabase (base de datos)
+- Pagos: Stripe (credenciales de producción existentes)
+- IA: Claude API (para generación de tests)
+- Fuentes: Inter + JetBrains Mono (Google Fonts)
+- Control de versiones: Git con Husky pre-commit hooks
+
+## Sistema de Diseño Actual
+
+### Paleta de Colores "Cobalt" (Post-rebranding)
+- **Azul Principal**: #0066CC (60% del uso)
+- **Acento Teal**: #00D4AA (30% del uso)
+- **CTA Coral**: #FF8C73 (10% del uso)
+- **Fondo**: Dark Navy
+- **Efectos**: Blur orbs, grid patterns, text glow
+
+### Fórmula de Diseño
+60% Studio Nika + 30% DesignBell + 10% Dark Tech Aesthetics
+
+## Arquitectura del Código
+
+### Estructura de Configuración Centralizada
+```
+/lib/config/
+  ├── brand.ts          # Identidad de marca centralizada
+  ├── pricing.ts        # Configuración de precios y planes
+  └── content.ts        # Textos y contenidos reutilizables
+```
+
+**REGLA CRÍTICA**: NO hardcodear valores. Todo debe provenir de archivos de configuración.
+
+## Funcionalidad de Datasets (60% Completo)
+
+### Algoritmos Implementados
+1. **RFC Generator**: Algoritmo SAT validado
+2. **CURP Generator**: Validación RENAPO
+3. **Direcciones**: Base SEPOMEX con 145K+ códigos postales
+4. **Transacciones**: Patrones realistas de e-commerce
+5. **Perfiles de Usuario**: Datos demográficamente precisos
+
+## Estado del Proyecto
+
+### Completado
+- Rebranding visual completo (Cobalt palette)
+- Sistema de configuración centralizado
+- UI premium con efectos avanzados
+- Estructura modular de componentes
+- Datasets backend (algoritmos de generación)
+
+### Pendiente
+- **Fase 2**: Conectar Stripe y Supabase (usar credenciales de producción existentes)
+- **Generador de Tests IA**: Integración completa con Claude API
+- Evaluación de MCP (Model Context Protocol) - solo después de completar datasets
+- Documentación completa del sistema
+
+## Principios de Desarrollo
+
+### 1. Configuración sobre Hardcoding
+Siempre crear archivos de configuración centralizados antes de implementar features.
+
+### 2. Desarrollo Incremental
+- Commits frecuentes y granulares
+- Verificación visual en cada paso
+- Documentación en tiempo real
+
+### 3. Modularidad y Escalabilidad
+- Componentes reutilizables
+- Arquitectura de microservicios
+- Patrones de diseño escalables
+
+### 4. Documentación Continua
+- Comentarios explicativos en código complejo
+- README actualizado por feature
+- Ejemplos prácticos para onboarding
+
+## Contexto del Usuario (Víctor)
+
+**Nivel de Experiencia:**
+- QA Manual en transición a QA Automation
+- Nivel: Intermedio-básico en automatización
+- Enfoque actual: Testing de microservicios
+
+**Preferencias de Comunicación:**
+- Explicaciones paso a paso
+- Ejemplos concretos y prácticos
+- Justificación de decisiones técnicas
+- Enfoque didáctico para conceptos nuevos
+
+**Áreas de Enfoque:**
+- Pruebas de microservicios
+- Frameworks de testing escalables
+- Buenas prácticas en automatización
+- Patrones de diseño reutilizables
+
+## Credenciales de Producción
+
+**IMPORTANTE**: Existen credenciales reales de Supabase y Stripe del proyecto anterior "Datasets MX" que deben recuperarse al avanzar a Fase 2.
+
+---
+
+## INSTRUCCIONES ESPECIALES PARA CLAUDE CODE
+
+### Auto-actualización de CLAUDE.md
+
+**CADA VEZ que realices cambios en el proyecto, DEBES actualizar automáticamente este archivo CLAUDE.md siguiendo este formato:**
+
+```markdown
+## [FECHA] - [Tipo de Cambio]
+
+### Cambios Implementados
+- [Descripción específica del cambio 1]
+- [Descripción específica del cambio 2]
+
+### Archivos Modificados/Creados
+- `ruta/del/archivo.ts` - [Propósito]
+- `ruta/otro/archivo.tsx` - [Propósito]
+
+### Configuración Actualizada
+- [Si se modificó algún archivo de config, especificar qué]
+
+### Decisiones Técnicas
+- [Por qué se tomó cierta decisión]
+- [Alternativas consideradas]
+
+### Próximos Pasos Sugeridos
+- [Qué sigue después de este cambio]
+
+---
+```
+
+### Tipos de Cambio para Categorizar
+- **[FEATURE]**: Nueva funcionalidad
+- **[REFACTOR]**: Mejora de código existente
+- **[FIX]**: Corrección de bugs
+- **[CONFIG]**: Cambios en configuración
+- **[DOCS]**: Actualización de documentación
+- **[STYLE]**: Cambios visuales/CSS
+- **[SETUP]**: Configuración inicial o de herramientas
+
+### Reglas de Auto-documentación
+
+1. **Después de cada commit exitoso**: Agrega una entrada al CLAUDE.md
+2. **Si creas nuevos archivos de configuración**: Actualiza la sección "Arquitectura del Código"
+3. **Si completas un módulo**: Actualiza la sección "Estado del Proyecto"
+4. **Si identificas un patrón importante**: Agrégalo a "Principios de Desarrollo"
+
+### Formato de Actualización Automática
+```bash
+# Al finalizar cualquier tarea, ejecuta:
+# 1. Commit de los cambios del código
+# 2. Actualiza CLAUDE.md con el formato especificado
+# 3. Commit de CLAUDE.md con mensaje: "docs: auto-update context [tipo-de-cambio]"
+```
+
+### Ejemplo de Auto-actualización
+```markdown
+## 2025-01-27 - [FEATURE] Sistema de Pricing Dinámico
+
+### Cambios Implementados
+- Creado archivo de configuración centralizada para planes de pricing
+- Implementados 3 tiers: Básico, Pro, Enterprise
+- Sistema de features flags por plan
+
+### Archivos Modificados/Creados
+- `lib/config/pricing.ts` - Configuración centralizada de planes
+- `components/PricingCard.tsx` - Componente de tarjeta de precio
+- `app/pricing/page.tsx` - Página de pricing
+
+### Configuración Actualizada
+- Agregado pricing.ts con estructura de planes flexible
+- Definidos límites por tier (datasets, requests, soporte)
+
+### Decisiones Técnicas
+- Usamos TypeScript strict para type safety en planes
+- Estructura permite fácil A/B testing de precios
+- Sistema de features permite escalar sin modificar componentes
+
+### Próximos Pasos Sugeridos
+- Conectar pricing con Stripe Checkout
+- Implementar lógica de límites en backend
+- Crear dashboard de uso por plan
+
+---
+```
+
+## WORKFLOW OBLIGATORIO
+
+Cada vez que implementes una feature o cambio:
+
+1. Planificar cambios (explicar al usuario)
+2. Implementar código
+3. Commit granular
+4. **AUTO-ACTUALIZAR CLAUDE.md** (SIN que el usuario lo pida)
+5. Commit de documentación
+6. Reportar al usuario qué se hizo
+
+**NUNCA esperes a que el usuario te pida actualizar la documentación. Es parte automática de tu workflow.**
+
+---
+
+## Comandos Útiles
+```bash
+# Desarrollo
+npm run dev
+
+# Build
+npm run build
+
+# Linting
+npm run lint
+
+# Pre-commit hooks
+npm run prepare
+```
+
+## Ubicación del Proyecto
+`C:\Users\DELL\Documents\Proyectos\TestForge\testforge-landing`
+
+---
+
+**Última Actualización**: 2025-01-27
+**Versión del Contexto**: 1.0
+**Estado General**: Fase 1 (Datasets + Rebranding) completada al 60%
+
+---
+
+# HISTORIAL DE CAMBIOS
+
+## 2025-01-27 - [SETUP] Creación de CLAUDE.md
+
+### Cambios Implementados
+- Creado archivo CLAUDE.md con contexto completo del proyecto
+- Definida estructura de auto-documentación
+- Establecido workflow obligatorio para Claude Code
+
+### Archivos Modificados/Creados
+- `CLAUDE.md` - Archivo de contexto principal para Claude Code
+
+### Configuración Actualizada
+- N/A (primera creación)
+
+### Decisiones Técnicas
+- Se usa formato Markdown para máxima compatibilidad
+- Estructura modular permite actualizaciones incrementales
+- Historial de cambios al final para fácil append
+
+### Próximos Pasos Sugeridos
+- Verificar que el archivo sea leído correctamente por Claude Code
+- Comenzar con la siguiente feature del proyecto
+
+---
