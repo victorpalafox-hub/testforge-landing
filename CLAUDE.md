@@ -287,3 +287,47 @@ npm run prepare
 - Continuar con Fase 2 (Stripe + Supabase)
 
 ---
+
+## 2025-01-27 - [FEATURE] Sistema de Auto-Revisión con Hook Post-Commit
+
+### Cambios Implementados
+- Creado script completo de auto-revisión que evalúa 6 categorías
+- Implementado hook post-commit que ejecuta la revisión automáticamente
+- Sistema genera reportes en Markdown en `docs/reviews/`
+- Integración con TypeScript, ESLint y análisis estático
+
+### Archivos Modificados/Creados
+- `scripts/auto-review.js` - Script principal de revisión (1000+ líneas)
+- `.husky/post-commit` - Hook de Git para ejecución automática
+- `docs/reviews/.gitkeep` - Directorio para reportes
+- `package.json` - Agregado script "auto-review"
+
+### Categorías de Revisión
+1. **Compilación y Sintaxis**: TypeScript, ESLint, dependencias
+2. **Valores Hardcodeados**: API keys, credenciales, URLs
+3. **Manejo de Errores**: async/await, try-catch, .then/.catch
+4. **Código Duplicado**: strings repetidos, bloques similares
+5. **Best Practices**: tipos, nomenclatura, tamaño de archivos
+6. **Seguridad**: .gitignore, inyecciones, secrets en logs
+
+### Uso
+```bash
+# Ejecutar manualmente
+npm run auto-review
+
+# Automático después de cada commit (hook post-commit)
+```
+
+### Decisiones Técnicas
+- Script en JavaScript puro (no TypeScript) para ejecución directa sin compilación
+- Análisis estático con regex para máxima velocidad
+- Reportes en Markdown para fácil lectura y versionado
+- Clasificación de issues: CRITICO > ALTO > MEDIO > BAJO
+- Exit code 1 si estado es CRITICO (útil para CI/CD)
+
+### Próximos Pasos Sugeridos
+- Resolver issues detectados en el reporte inicial
+- Afinar detección de falsos positivos en "secrets en logs"
+- Considerar integración con GitHub Actions para CI
+
+---
