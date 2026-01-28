@@ -1,0 +1,15 @@
+# Test Reports (generated)
+reports/playwright-html/
+reports/coverage/
+reports/playwright-results.json
+reports/*.html
+reports/*.xml
+
+# Playwright artifacts
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Screenshots & Videos
+screenshots/
+videos/
