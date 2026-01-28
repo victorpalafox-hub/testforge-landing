@@ -366,3 +366,31 @@ npm run auto-review
 - Considerar integración con GitHub Actions para CI automático
 
 ---
+
+## 2025-01-27 - [REFACTOR] Auto-Revisión en Pre-Commit
+
+### Cambios Implementados
+- Auto-revisión movida de post-commit a **pre-commit**
+- Si detecta errores críticos, **BLOQUEA el commit**
+- Validaciones originales de Husky se mantienen intactas
+
+### Flujo de Pre-Commit (4 pasos)
+1. **TypeScript type-check** - Verificación de tipos
+2. **Lint-staged** - ESLint + Prettier en archivos staged
+3. **Build check** - Compilación del proyecto
+4. **Auto-revisión** - 6 categorías de validación
+
+### Archivos Modificados
+- `.husky/pre-commit` - Agregada auto-revisión como paso 4
+- `.husky/post-commit` - **ELIMINADO** (redundante)
+
+### Comportamiento
+- Si **cualquier paso falla** → commit bloqueado
+- El desarrollador **debe corregir** los issues antes de poder commitear
+- Garantiza que solo código validado llegue al repositorio
+
+### Próximos Pasos Sugeridos
+- Probar el flujo completo haciendo un cambio intencional con errores
+- Continuar con Fase 2 (Stripe + Supabase)
+
+---
