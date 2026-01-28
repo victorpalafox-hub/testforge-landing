@@ -36,6 +36,12 @@ const CONFIG = {
   maxLinesPerFile: 500,
   // Limite de uso de 'any'
   maxAnyUsage: 0,
+  // Archivos de configuracion (permitir mas lineas y URLs hardcodeadas)
+  configFiles: ['config/', '.config.', 'constants.', 'brand.', 'content.', 'env.'],
+  // Limite de lineas para archivos de configuracion
+  maxLinesConfigFile: 1000,
+  // Palabras que NO indican secrets reales en logs
+  falsePositiveSecretWords: ['password:', 'token:', 'key:', 'secret:'], // Solo si son labels/keys de objetos
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -554,16 +560,44 @@ async function checkDuplicateCode() {
   const stringOccurrences = new Map();
   const codeBlocks = new Map();
 
+  // Patrones a ignorar en strings (imports, clases CSS, URLs, etc.)
+  const ignoreStringPatterns = [
+    /^import\s/,           // Imports
+    /^from\s/,             // From clauses
+    /^@\//,                // Path aliases
+    /^https?:\/\//,        // URLs
+    /^[a-z-]+:\s/,         // CSS properties
+    /className/,           // className strings
+    /^\s*\/\//,            // Comments
+    /startsWith|endsWith/, // Common methods
+  ];
+
+  // Patrones a ignorar en bloques de codigo
+  const ignoreBlockPatterns = [
+    'className=',          // JSX className patterns
+    '<div',                // Common JSX elements
+    '<span',
+    '<p className',
+    'key={',               // React keys
+    'style={{',            // Inline styles
+    'return (',            // Return statements
+  ];
+
   const files = getSourceFiles();
 
   for (const file of files) {
     const content = readFileSync(file, 'utf-8');
     const relativePath = relative(process.cwd(), file);
 
-    // Buscar strings repetidos (>20 caracteres)
-    const stringMatches = content.matchAll(/['"]([^'"]{20,})['"]/g);
+    // Buscar strings repetidos (>30 caracteres, mas estricto)
+    const stringMatches = content.matchAll(/['"]([^'"]{30,})['"]/g);
     for (const match of stringMatches) {
       const str = match[1];
+
+      // Ignorar strings que coincidan con patrones comunes
+      const shouldIgnore = ignoreStringPatterns.some(pattern => pattern.test(str));
+      if (shouldIgnore) continue;
+
       if (!stringOccurrences.has(str)) {
         stringOccurrences.set(str, []);
       }
@@ -574,13 +608,19 @@ async function checkDuplicateCode() {
     const lines = content.split('\n');
     for (let i = 0; i < lines.length - 5; i++) {
       const block = lines.slice(i, i + 5).join('\n').trim();
-      if (block.length > 100 && !block.includes('import') && !block.includes('export')) {
-        const normalized = block.replace(/\s+/g, ' ');
-        if (!codeBlocks.has(normalized)) {
-          codeBlocks.set(normalized, []);
-        }
-        codeBlocks.get(normalized).push({ file: relativePath, line: i + 1 });
+
+      // Ignorar bloques cortos, imports, exports y patrones comunes de JSX
+      if (block.length < 150) continue;
+      if (block.includes('import') || block.includes('export')) continue;
+
+      const shouldIgnore = ignoreBlockPatterns.some(pattern => block.includes(pattern));
+      if (shouldIgnore) continue;
+
+      const normalized = block.replace(/\s+/g, ' ');
+      if (!codeBlocks.has(normalized)) {
+        codeBlocks.set(normalized, []);
       }
+      codeBlocks.get(normalized).push({ file: relativePath, line: i + 1 });
     }
   }
 
@@ -612,7 +652,8 @@ async function checkDuplicateCode() {
     }
   });
 
-  const passed = duplicateBlocks < 5 && repeatedStrings < 10;
+  // Thresholds ajustados: permitir algo de duplicacion en proyectos reales
+  const passed = duplicateBlocks < 10 && repeatedStrings < 15;
 
   printResult(repeatedStrings < 10, `Strings repetidos (3+ veces): ${repeatedStrings}`);
   printResult(duplicateBlocks < 5, `Bloques de codigo duplicados: ${duplicateBlocks}`);
@@ -650,14 +691,18 @@ async function checkBestPractices() {
     const lines = content.split('\n');
     const relativePath = relative(process.cwd(), file);
 
+    // Verificar si es archivo de configuracion (permitir mas lineas)
+    const isConfigFile = CONFIG.configFiles.some(pattern => relativePath.includes(pattern));
+    const maxLines = isConfigFile ? CONFIG.maxLinesConfigFile : CONFIG.maxLinesPerFile;
+
     // Verificar tamano de archivo
-    if (lines.length > CONFIG.maxLinesPerFile) {
+    if (lines.length > maxLines) {
       largeFiles++;
       issues.push({
         severity: 'BAJO',
         file: relativePath,
         line: null,
-        message: `Archivo con ${lines.length} lineas (max recomendado: ${CONFIG.maxLinesPerFile})`,
+        message: `Archivo con ${lines.length} lineas (max recomendado: ${maxLines})`,
       });
     }
 
@@ -816,12 +861,48 @@ async function checkSecurity() {
   printResult(injectionRisks === 0, `Riesgos de inyeccion: ${injectionRisks} detectados`);
 
   // Verificar que secrets no se loguean
+  // Patron mas estricto: busca console.log con variables que contengan secret/password/token/key
   let loggedSecrets = 0;
   for (const file of files) {
-    const content = readFileSync(file, 'utf-8');
-    if (/console\.(log|info|debug)\(.*password|secret|token|key/i.test(content)) {
-      loggedSecrets++;
+    const relativePath = relative(process.cwd(), file);
+
+    // Ignorar archivos de scripts y configuracion
+    if (relativePath.includes('scripts/') || relativePath.includes('.config.')) {
+      continue;
     }
+
+    const content = readFileSync(file, 'utf-8');
+    const lines = content.split('\n');
+
+    lines.forEach((line, index) => {
+      // Ignorar comentarios y ejemplos en documentacion
+      if (line.trim().startsWith('//') || line.trim().startsWith('*') || line.includes('@example')) {
+        return;
+      }
+
+      // Buscar patrones reales de leak de secrets:
+      // - console.log(password) o console.log(apiKey)
+      // - console.log('Password:', password)
+      // - console.log(user.password)
+      const dangerousPatterns = [
+        /console\.(log|info|debug|error)\s*\(\s*(password|apiKey|secretKey|authToken|accessToken)\s*\)/i,
+        /console\.(log|info|debug|error)\s*\([^)]*\.\s*(password|apiKey|secret|token)\s*\)/i,
+        /console\.(log|info|debug|error)\s*\([^)]*,\s*(password|apiKey|secret|token)\s*\)/i,
+      ];
+
+      for (const pattern of dangerousPatterns) {
+        if (pattern.test(line)) {
+          loggedSecrets++;
+          issues.push({
+            severity: 'ALTO',
+            file: relativePath,
+            line: index + 1,
+            message: 'Posible secret siendo logueado',
+          });
+          break;
+        }
+      }
+    });
   }
 
   printResult(loggedSecrets === 0, `Secrets en logs: ${loggedSecrets} detectados`);

@@ -6,11 +6,22 @@ import { BenefitIcon } from '@/components/ui/BenefitIcon';
 import { CatalogSection } from '@/components/products/CatalogSection';
 
 export default async function Home() {
-  const { data: datasets, error } = await supabase
-    .from('datasets')
-    .select('*')
-    .eq('is_published', true)
-    .order('created_at', { ascending: false });
+  let datasets = null;
+  let error = null;
+
+  try {
+    const result = await supabase
+      .from('datasets')
+      .select('*')
+      .eq('is_published', true)
+      .order('created_at', { ascending: false });
+
+    datasets = result.data;
+    error = result.error;
+  } catch (e) {
+    console.error('Error fetching datasets:', e);
+    error = e;
+  }
 
   return (
     <div className="min-h-screen bg-slate-950">
