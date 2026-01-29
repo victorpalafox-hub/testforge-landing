@@ -91,6 +91,15 @@ El proyecto tiene configurados agentes especializados que se invocan automática
 
 **Qué hace:** Limpia, optimiza y simplifica código sin romper funcionalidad. Elimina código muerto y reduce complejidad.
 
+### documentation-keeper
+**Cuándo se activa:**
+- Después de cambios exitosos de código y tests pasando (vía `@qa-automation`)
+- Cuando se implementan nuevas features, refactors o fixes exitosamente
+- Cuando cambia la configuración del proyecto o dependencias
+- Cuando el build compila exitosamente después de cambios significativos
+
+**Qué hace:** Mantiene README.md y CLAUDE.md sincronizados con el estado actual del proyecto. Actualiza documentación exclusivamente en estos dos archivos, evitando duplicación de información.
+
 ---
 
 ## Contexto del Proyecto TestForge
@@ -146,6 +155,22 @@ Después de cada cambio significativo, agregar entrada al historial:
 ---
 
 # HISTORIAL DE CAMBIOS
+
+## 2026-01-28 - [CONFIG] Agente documentation-keeper
+
+### Cambios
+- Agregado nuevo agente `documentation-keeper` a la sección de Agentes Especializados
+- El agente mantiene sincronizados README.md y CLAUDE.md automáticamente
+
+### Archivos
+- `CLAUDE.md` - Documentación del nuevo agente
+- `.claude/agents/documentation-keeper.md` - Definición del agente
+
+### Decisiones Técnicas
+- Se activa proactivamente después de cambios exitosos y tests pasando
+- Evita duplicación manteniendo información complementaria entre README.md y CLAUDE.md
+
+---
 
 ## 2025-01-27 - [SETUP] Configuración inicial
 

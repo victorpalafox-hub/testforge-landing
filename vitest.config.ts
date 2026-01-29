@@ -43,10 +43,12 @@ export default defineConfig({
         '**/index.{ts,tsx}',
       ],
       // Thresholds
-      lines: 80,
-      functions: 80,
-      branches: 80,
-      statements: 80,
+      thresholds: {
+        lines: 80,
+        functions: 80,
+        branches: 80,
+        statements: 80,
+      },
     },
 
     // Globals (permite usar describe, it, expect sin importar)
